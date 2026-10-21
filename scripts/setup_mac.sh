@@ -1,22 +1,16 @@
 #!/bin/bash
-# Run from the project root: bash scripts/setup_mac.sh
+# Native (non-Docker) setup with uv. Run from the project root: bash scripts/setup_mac.sh
+# uv installs Python 3.11 itself if needed and reproduces the exact uv.lock environment in .venv.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-if ! command -v python3.11 >/dev/null 2>&1; then
-  echo 'Python 3.11 is required. If Homebrew is installed, run: brew install python@3.11'
+if ! command -v uv >/dev/null 2>&1; then
+  echo 'uv is required. Install it with: curl -LsSf https://astral.sh/uv/install.sh | sh'
   echo 'Then rerun: bash scripts/setup_mac.sh'
   exit 1
 fi
-if [ ! -d .venv ]; then
-  python3.11 -m venv .venv
-fi
-.venv/bin/python -c 'import sys; assert sys.version_info[:2] == (3,11), "Existing .venv must use Python 3.11; preserve it and create a new project copy."'
-.venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m pip check
+uv sync --locked
 mkdir -p reports
-.venv/bin/python scripts/check_environment.py | tee reports/environment-local.txt
-.venv/bin/python -m pip freeze > requirements-lock-local.txt
-.venv/bin/python -m ipykernel install --user --name aml-fashion --display-name "Python (AML Fashion)"
-echo 'Setup complete. Run: source .venv/bin/activate'
-echo 'Then: python -m jupyterlab notebooks/exploration.ipynb'
+uv run --locked python scripts/check_environment.py | tee reports/environment-local.txt
+uv run --locked python -m ipykernel install --user --name aml-fashion --display-name "Python (AML Fashion)"
+echo 'Setup complete. Run commands with uv run, e.g.: uv run python app.py'
+echo 'Then: uv run python -m jupyterlab notebooks/exploration.ipynb'
