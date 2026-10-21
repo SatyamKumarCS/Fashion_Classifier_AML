@@ -1,0 +1,43 @@
+Training pixels/logistic_regression: {'C': 0.1, 'max_iter': 1000, 'solver': 'lbfgs'}
+  validation accuracy=0.8375, macro F1=0.8374; fit=6.3s
+Training pixels/logistic_regression: {'C': 1.0, 'max_iter': 1000, 'solver': 'lbfgs'}
+  validation accuracy=0.8077, macro F1=0.8080; fit=6.2s
+Training pixels/knn: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'euclidean'}
+  validation accuracy=0.8316, macro F1=0.8320; fit=0.0s
+Training pixels/knn: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'euclidean'}
+  validation accuracy=0.8347, macro F1=0.8346; fit=0.0s
+Training pixels/random_forest: {'n_estimators': 100, 'max_depth': 20, 'max_features': 'sqrt'}
+  validation accuracy=0.8622, macro F1=0.8606; fit=3.4s
+Training pixels/random_forest: {'n_estimators': 100, 'max_depth': None, 'max_features': 'sqrt'}
+  validation accuracy=0.8646, macro F1=0.8628; fit=3.5s
+Training pixels/linear_svm: {'C': 0.1, 'max_iter': 10000, 'dual': 'auto'}
+  validation accuracy=0.8193, macro F1=0.8179; fit=162.8s
+Training pixels/linear_svm: {'C': 1.0, 'max_iter': 10000, 'dual': 'auto'}
+  validation accuracy=0.8003, macro F1=0.7989; fit=574.4s
+HOG: 10000/12000 images
+HOG: 10000/12000 images
+Training hog/logistic_regression: {'C': 0.1, 'max_iter': 1000, 'solver': 'lbfgs'}
+  validation accuracy=0.8394, macro F1=0.8391; fit=1.3s
+Training hog/logistic_regression: {'C': 1.0, 'max_iter': 1000, 'solver': 'lbfgs'}
+  validation accuracy=0.8307, macro F1=0.8305; fit=1.7s
+Training hog/knn: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'euclidean'}
+  validation accuracy=0.8143, macro F1=0.8146; fit=0.0s
+Training hog/knn: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'euclidean'}
+  validation accuracy=0.8224, macro F1=0.8225; fit=0.0s
+Training hog/random_forest: {'n_estimators': 100, 'max_depth': 20, 'max_features': 'sqrt'}
+  validation accuracy=0.8284, macro F1=0.8280; fit=4.0s
+Training hog/random_forest: {'n_estimators': 100, 'max_depth': None, 'max_features': 'sqrt'}
+  validation accuracy=0.8261, macro F1=0.8254; fit=4.1s
+Training hog/linear_svm: {'C': 0.1, 'max_iter': 10000, 'dual': 'auto'}
+  validation accuracy=0.8403, macro F1=0.8391; fit=6.2s
+Training hog/linear_svm: {'C': 1.0, 'max_iter': 10000, 'dual': 'auto'}
+  validation accuracy=0.8331, macro F1=0.8320; fit=8.2s
+features               model  accuracy  macro_f1
+  pixels       random_forest  0.864583  0.862814
+     hog logistic_regression  0.839417  0.839137
+     hog          linear_svm  0.840333  0.839120
+  pixels logistic_regression  0.837500  0.837426
+  pixels                 knn  0.834667  0.834612
+     hog       random_forest  0.828417  0.827967
+     hog                 knn  0.822417  0.822454
+  pixels          linear_svm  0.819250  0.817884

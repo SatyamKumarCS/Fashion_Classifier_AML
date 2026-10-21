@@ -1,0 +1,11 @@
+label,category,validation_recall
+0,T-shirt/top,0.7958333333333333
+1,Trouser,0.9125
+2,Pullover,0.7391666666666666
+3,Dress,0.85
+4,Coat,0.7208333333333333
+5,Sandal,0.9225
+6,Shirt,0.59
+7,Sneaker,0.855
+8,Bag,0.9575
+9,Ankle boot,0.9408333333333333

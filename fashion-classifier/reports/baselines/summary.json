@@ -1,0 +1,49 @@
+{
+  "milestone": 3,
+  "status": "complete",
+  "seed": 42,
+  "training_budget": 12000,
+  "full_training_split_size": 48000,
+  "validation_size": 12000,
+  "subset_per_class": 1200,
+  "feature_config": {
+    "pixels": {
+      "shape": [
+        784
+      ],
+      "scaling": "float32 / 255"
+    },
+    "hog": {
+      "orientations": 9,
+      "pixels_per_cell": [
+        7,
+        7
+      ],
+      "cells_per_block": [
+        2,
+        2
+      ],
+      "block_norm": "L2-Hys",
+      "transform_sqrt": false,
+      "feature_vector": true,
+      "feature_count": 324
+    }
+  },
+  "learned_preprocessing": "StandardScaler fitted on baseline training subset only for LR and SVM; none for kNN and RF",
+  "selection": "highest validation macro F1; accuracy breaks ties; converged candidates only",
+  "candidate_count": 16,
+  "selected_model_count": 8,
+  "best_validation_model": "pixels/random_forest",
+  "best_validation_macro_f1": 0.8628135012663563,
+  "best_validation_accuracy": 0.8645833333333334,
+  "split_sha256": "3d7509951b1f4a94b9755b70092a448e9239fe6e26b8eb2f5a8e657cb2454a72",
+  "subset_sha256": "113bf56f3e65a89c8388429f91d197a3297be0213e0213b100b3ed0d3ed7d9dd",
+  "versions": {
+    "numpy": "1.26.4",
+    "scikit_learn": "1.9.1",
+    "scikit_image": "0.26.0"
+  },
+  "timing": "wall clock on local CPU with 2 threads; validation prediction includes pipeline transforms, excludes feature extraction; preliminary, not final inference benchmark",
+  "limitation": "All baselines use a shared 12000-image subset. These are validation selection scores, not official test scores or a full-training-data comparison.",
+  "official_test_loaded": false
+}
