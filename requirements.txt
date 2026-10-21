@@ -1,0 +1,13 @@
+# Step 1: install inside a Python 3.11 or 3.12 virtual environment.
+# Capture exact resolved versions after installation using pip freeze.
+numpy
+pandas
+scikit-learn
+scikit-image
+matplotlib
+pillow
+torch
+torchvision
+jupyterlab
+ipykernel
+gradio

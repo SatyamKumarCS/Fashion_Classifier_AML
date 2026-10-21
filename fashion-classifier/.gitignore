@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+data/*
+!data/raw/
+!data/processed/
+data/raw/*
+data/processed/*
+!**/.gitkeep
+models/*
+!models/.gitkeep
+*.pt
+*.pth
+.env
+reports/environment-*.txt
+requirements-lock-*.txt
