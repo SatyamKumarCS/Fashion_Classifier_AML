@@ -25,9 +25,25 @@ import app
 from src.predict import FashionPredictor
 
 
+def protected_manifest(choice):
+    """Original manifest, or the reproduction manifest when models/PROVENANCE.json records one.
+
+    The reproduction manifest keeps every original hash except the installed models' own.
+    """
+    if choice!='auto':
+        return Path(choice)
+    reproduced=ROOT/'models/reproduced-sha256.json'
+    if (ROOT/'models/PROVENANCE.json').exists() and reproduced.exists():
+        return reproduced
+    return ROOT/'reports/demo/protected-sha256.json'
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--url',default='http://127.0.0.1:7860')
+    parser.add_argument('--manifest',default='auto',
+                        help="Hash manifest for the unchanged-artifacts check; 'auto' picks the reproduction "
+                             "manifest when models/PROVENANCE.json exists, otherwise reports/demo/protected-sha256.json.")
     args=parser.parse_args()
     checks=[]
     examples,names=app.sample_inputs()
@@ -133,11 +149,12 @@ print('Isolated app construction and callback passed')
         assert 'Isolated app construction and callback passed' in result.stdout
         assert not (isolated/'data').exists() and not (isolated/'reports').exists()
     checks.append('isolated app startup/callback with network blocked and no dataset/training/evaluation modules')
-    protected=json.loads((ROOT/'reports/demo/protected-sha256.json').read_text())
+    manifest=protected_manifest(args.manifest)
+    protected=json.loads(manifest.read_text())
     for relative,expected in protected.items():
         assert hashlib.sha256((ROOT/relative).read_bytes()).hexdigest()==expected,relative
-    checks.append('all frozen weights, split files, inference contracts and prior evaluation artifacts unchanged')
-    print(json.dumps({'status':'passed','url':args.url,'sample_count':len(examples),
+    checks.append(f'all weights, split files, inference contracts and prior evaluation artifacts match {manifest.relative_to(ROOT)}')
+    print(json.dumps({'status':'passed','url':args.url,'sample_count':len(examples),'manifest':str(manifest.relative_to(ROOT)),
                       'check_groups':checks,'official_test_loaded':False,
                       'gradio_version':app.gr.__version__},indent=2))
     return 0

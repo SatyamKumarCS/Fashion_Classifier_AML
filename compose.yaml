@@ -1,0 +1,53 @@
+# Compose project name fixed so it stays "fashion-classifier" regardless of the checkout directory name.
+name: fashion-classifier
+
+# docker compose run --rm pipeline   # download data, train, evaluate on test, install models/ with provenance
+# docker compose up -d app           # Gradio demo at http://127.0.0.1:7860
+# docker compose run --rm verify     # artifact hashes, prediction contract and HTTP checks against `app`
+# docker compose up notebook         # JupyterLab at http://127.0.0.1:8888 (login URL: docker compose logs notebook)
+x-image: &image
+  build: .
+  image: fashion-classifier:${FC_TAG:-latest}
+
+services:
+  pipeline:
+    <<: *image
+    command: ["python", "scripts/reproduce.py", "--install"]
+    volumes:
+      - ./runs:/app/runs
+      - ./models:/app/models
+      - ./data:/app/data
+    profiles: ["pipeline"]
+
+  app:
+    <<: *image
+    ports:
+      - "127.0.0.1:7860:7860"
+    volumes:
+      - ./models:/app/models:ro
+    mem_limit: 1g
+    cpus: 2
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:7860/')"]
+      interval: 15s
+      start_period: 30s
+
+  verify:
+    <<: *image
+    command: ["sh", "-c", "python scripts/verify_artifacts.py && python scripts/verify_prediction.py && python scripts/verify_demo.py --url http://app:7860"]
+    volumes:
+      - ./models:/app/models:ro
+      - ./data:/app/data:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    profiles: ["verify"]
+
+  notebook:
+    <<: *image
+    command: ["python", "-m", "jupyterlab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "notebooks/exploration.ipynb"]
+    ports:
+      - "127.0.0.1:8888:8888"
+    volumes:
+      - .:/app
+    profiles: ["notebook"]

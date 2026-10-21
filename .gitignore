@@ -1,7 +1,15 @@
-.venv/
-__pycache__/
-.ipynb_checkpoints/
+# Local operating-system, editor and Python files
 .DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+.env
+.env.*
+!.env.example
+# Datasets, weights and pipeline runs are generated (see README); only placeholders are tracked.
 data/*
 !data/raw/
 !data/processed/
@@ -12,6 +20,5 @@ models/*
 !models/.gitkeep
 *.pt
 *.pth
-.env
+runs/
 reports/environment-*.txt
-requirements-lock-*.txt

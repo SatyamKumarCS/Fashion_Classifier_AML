@@ -1,0 +1,15 @@
+.venv/
+**/__pycache__/
+**/.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store
+.git
+.env
+# Not used by the project or the image.
+archive/
+# Datasets and pipeline runs are produced inside containers and mounted as volumes.
+data/raw/
+data/processed/
+runs/
+reports/step*-backup/
+# models/ is intentionally kept: an image built after `pipeline` carries the installed weights.
