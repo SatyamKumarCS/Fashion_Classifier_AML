@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "training_examples_used": [
+    20478,
+    58165,
+    25993,
+    12614,
+    37553,
+    28511,
+    23484,
+    19733,
+    27123,
+    53256
+  ],
+  "check_groups": [
+    "native grayscale pixels, exact training scaling, direct-model score equivalence, all ten labels",
+    "RGB, single-channel array, normalized float, alpha compositing and explicit light-background equivalence",
+    "aspect-preserving resize and centered black letterbox",
+    "EXIF orientation correction without mutating original image",
+    "extreme aspect ratio remains a valid nonzero image size",
+    "reject blank, transparent-empty, nonfinite, invalid range/shape/dtype and invalid options",
+    "PNG lossless identity, RGB JPEG upload, corrupt/missing file errors",
+    "prediction leaves weights and BatchNorm buffers unchanged and creates no gradients",
+    "isolated CLI serving with no datasets/reports/training modules and blocked network"
+  ],
+  "checkpoint_sha256": "9491b0cfdd349b813516d675cfcd1007d1dc41a127c18a2a0e25c13b5f1c8069",
+  "official_test_loaded": false
+}

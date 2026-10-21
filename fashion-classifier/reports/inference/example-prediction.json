@@ -1,0 +1,70 @@
+{
+  "label": "T-shirt/top",
+  "class_index": 0,
+  "scores": {
+    "T-shirt/top": 0.9277559518814087,
+    "Trouser": 1.6577621863689274e-05,
+    "Pullover": 0.0021487888880074024,
+    "Dress": 0.000999417738057673,
+    "Coat": 7.34839386495878e-06,
+    "Sandal": 1.0575890883046668e-06,
+    "Shirt": 0.06901766359806061,
+    "Sneaker": 2.466234491294017e-06,
+    "Bag": 5.051871630712412e-05,
+    "Ankle boot": 2.3088448131147743e-07
+  },
+  "top_predictions": [
+    {
+      "label": "T-shirt/top",
+      "class_index": 0,
+      "score": 0.9277559518814087
+    },
+    {
+      "label": "Shirt",
+      "class_index": 6,
+      "score": 0.06901766359806061
+    },
+    {
+      "label": "Pullover",
+      "class_index": 2,
+      "score": 0.0021487888880074024
+    }
+  ],
+  "preprocessing": {
+    "original_size": [
+      28,
+      28
+    ],
+    "oriented_size": [
+      28,
+      28
+    ],
+    "exif_orientation_applied": false,
+    "source_type": "PIL image",
+    "original_mode": "L",
+    "background": "dark",
+    "inverted": false,
+    "alpha_composited": false,
+    "resized_size": [
+      28,
+      28
+    ],
+    "padding_left_top_right_bottom": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "output_shape": [
+      1,
+      1,
+      28,
+      28
+    ],
+    "pixel_range": [
+      0.0,
+      0.9960784316062927
+    ],
+    "upload_adaptation": false
+  }
+}
