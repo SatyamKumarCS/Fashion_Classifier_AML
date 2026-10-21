@@ -1,0 +1,59 @@
+{
+  "cnn": {
+    "kind": "trainable neural parameters",
+    "count": 429450,
+    "buffer_scalars": 194
+  },
+  "pixels_random_forest": {
+    "kind": "tree nodes",
+    "count": 238772,
+    "trees": 100,
+    "max_depth": 40
+  },
+  "hog_logistic_regression": {
+    "kind": "linear coefficients plus intercepts",
+    "count": 3250,
+    "coefficient_count": 3240,
+    "intercept_count": 10,
+    "scaler_mean_var_scale_scalars": 972
+  },
+  "hog_linear_svm": {
+    "kind": "linear coefficients plus intercepts",
+    "count": 3250,
+    "coefficient_count": 3240,
+    "intercept_count": 10,
+    "scaler_mean_var_scale_scalars": 972
+  },
+  "pixels_logistic_regression": {
+    "kind": "linear coefficients plus intercepts",
+    "count": 7850,
+    "coefficient_count": 7840,
+    "intercept_count": 10,
+    "scaler_mean_var_scale_scalars": 2352
+  },
+  "pixels_knn": {
+    "kind": "stored training examples",
+    "count": 12000,
+    "stored_features": 784,
+    "stored_feature_bytes": 37632000
+  },
+  "hog_random_forest": {
+    "kind": "tree nodes",
+    "count": 275372,
+    "trees": 100,
+    "max_depth": 20
+  },
+  "hog_knn": {
+    "kind": "stored training examples",
+    "count": 12000,
+    "stored_features": 324,
+    "stored_feature_bytes": 15552000
+  },
+  "pixels_linear_svm": {
+    "kind": "linear coefficients plus intercepts",
+    "count": 7850,
+    "coefficient_count": 7840,
+    "intercept_count": 10,
+    "scaler_mean_var_scale_scalars": 2352
+  }
+}

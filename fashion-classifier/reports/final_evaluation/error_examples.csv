@@ -1,0 +1,13 @@
+group,test_index,true_label,rf_prediction,cnn_prediction,cnn_max_softmax
+CNN correct; Random Forest wrong,3453,2,4,2,0.7098146677017212
+CNN correct; Random Forest wrong,8425,0,6,0,0.5932260751724243
+CNN correct; Random Forest wrong,5648,6,2,6,0.5345984101295471
+CNN correct; Random Forest wrong,4973,0,3,0,0.4911099076271057
+Random Forest correct; CNN wrong,8801,4,4,6,0.6095369458198547
+Random Forest correct; CNN wrong,5041,6,6,0,0.5118926763534546
+Random Forest correct; CNN wrong,4965,0,0,6,0.502937912940979
+Random Forest correct; CNN wrong,8518,6,6,4,0.5545412302017212
+Both models wrong,511,2,4,4,0.4999145269393921
+Both models wrong,9880,0,3,3,0.9266794323921204
+Both models wrong,2653,0,6,6,0.5011089444160461
+Both models wrong,6658,6,2,2,0.7132678031921387

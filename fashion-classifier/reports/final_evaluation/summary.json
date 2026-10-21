@@ -1,0 +1,76 @@
+{
+  "milestone": 5,
+  "status": "complete",
+  "official_test_images": 10000,
+  "official_test_md5": {
+    "t10k-images-idx3-ubyte.gz": "bef4ecab320f06d8554ea6380940ec79",
+    "t10k-labels-idx1-ubyte.gz": "bb300cfdad3c16e7a12a480ee83cd310"
+  },
+  "model_count": 9,
+  "frozen_manifest_sha256": "90bd3d695596dfe7ac89682a29a4a2d1d0d869152bf86b5eb5ccdf84eba14608",
+  "chosen_model_before_test": "cnn",
+  "primary_baseline_before_test": "pixels_random_forest",
+  "cnn_test_accuracy": 0.89,
+  "cnn_test_macro_f1": 0.8884812765490114,
+  "baseline_test_accuracy": 0.8527,
+  "baseline_test_macro_f1": 0.8509207409733793,
+  "accuracy_difference": 0.0373,
+  "paired_bootstrap_95ci_accuracy_difference": [
+    0.0314,
+    0.0431
+  ],
+  "bootstrap_scope": "Test-image sampling uncertainty for these fixed fitted models; excludes training/seed variability.",
+  "paired_correctness": {
+    "both_correct": 8283,
+    "cnn_only_correct": 617,
+    "rf_only_correct": 244,
+    "both_wrong": 856
+  },
+  "timing_protocol": {
+    "batch_size": 128,
+    "timing_images": 1024,
+    "timing_repeats": 3,
+    "warmup_batches": 1,
+    "timing_device": "cpu",
+    "library_threads": 2,
+    "timing_input": "first 1024 official test images in original order, held in memory",
+    "timing_scope": "raw uint8 image batch to predicted labels; includes scaling, HOG if used, pipeline scaler and model forward; excludes file I/O, model loading and score/probability generation",
+    "selection_policy": "Model configurations frozen from validation. No fitting or model selection using test scores.",
+    "primary_cnn": "cnn",
+    "primary_baseline": "pixels_random_forest",
+    "training_budget": 12000,
+    "validation_budget": 12000,
+    "hog_config": {
+      "orientations": 9,
+      "pixels_per_cell": [
+        7,
+        7
+      ],
+      "cells_per_block": [
+        2,
+        2
+      ],
+      "block_norm": "L2-Hys",
+      "transform_sqrt": false,
+      "feature_vector": true
+    },
+    "bootstrap_seed": 42,
+    "bootstrap_repeats": 2000
+  },
+  "environment": {
+    "python": "3.11.17",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "torch": "2.14.1",
+    "numpy": "1.26.4",
+    "scikit_learn": "1.9.1",
+    "scikit_image": "0.26.0"
+  },
+  "limitations": [
+    "Single trained seed and 12000-image training subset for every model.",
+    "Different optimization/search budgets and checkpoint selection criteria.",
+    "Timing uses resident arrays, warm models, batch size 128 and CPU only; not upload latency or single-image latency.",
+    "Serialized sizes use different formats; tree nodes, stored samples and neural parameters are not equivalent.",
+    "Fashion-MNIST grayscale thumbnails do not establish performance on real product photos.",
+    "Official test results are final reporting; further changes require new validation-based decisions, not test-driven tuning."
+  ]
+}

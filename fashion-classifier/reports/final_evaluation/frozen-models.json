@@ -1,0 +1,169 @@
+{
+  "frozen_at_utc": "2026-10-20T07:31:56.822959+00:00",
+  "protocol": {
+    "batch_size": 128,
+    "timing_images": 1024,
+    "timing_repeats": 3,
+    "warmup_batches": 1,
+    "timing_device": "cpu",
+    "library_threads": 2,
+    "timing_input": "first 1024 official test images in original order, held in memory",
+    "timing_scope": "raw uint8 image batch to predicted labels; includes scaling, HOG if used, pipeline scaler and model forward; excludes file I/O, model loading and score/probability generation",
+    "selection_policy": "Model configurations frozen from validation. No fitting or model selection using test scores.",
+    "primary_cnn": "cnn",
+    "primary_baseline": "pixels_random_forest",
+    "training_budget": 12000,
+    "validation_budget": 12000,
+    "hog_config": {
+      "orientations": 9,
+      "pixels_per_cell": [
+        7,
+        7
+      ],
+      "cells_per_block": [
+        2,
+        2
+      ],
+      "block_norm": "L2-Hys",
+      "transform_sqrt": false,
+      "feature_vector": true
+    },
+    "bootstrap_seed": 42,
+    "bootstrap_repeats": 2000
+  },
+  "models": [
+    {
+      "key": "cnn",
+      "path": "models/cnn/best.pt",
+      "features": "cnn",
+      "validation_accuracy": 0.89925,
+      "validation_macro_f1": 0.8980204037798911,
+      "selection": "minimum validation loss; epoch 9",
+      "sha256": "9491b0cfdd349b813516d675cfcd1007d1dc41a127c18a2a0e25c13b5f1c8069"
+    },
+    {
+      "key": "pixels_random_forest",
+      "path": "models/baselines/pixels_random_forest.joblib",
+      "features": "pixels",
+      "parameters": {
+        "max_depth": null,
+        "max_features": "sqrt",
+        "n_estimators": 100
+      },
+      "validation_accuracy": 0.8645833333333334,
+      "validation_macro_f1": 0.8628135012663563,
+      "selection": "validation macro F1; accuracy tie breaker",
+      "sha256": "990446929fc0d0242965a418c1b42bc37c62946ee77003831c7e2d04ded2015b"
+    },
+    {
+      "key": "hog_logistic_regression",
+      "path": "models/baselines/hog_logistic_regression.joblib",
+      "features": "hog",
+      "parameters": {
+        "C": 0.1,
+        "max_iter": 1000,
+        "solver": "lbfgs"
+      },
+      "validation_accuracy": 0.8394166666666667,
+      "validation_macro_f1": 0.8391369979053851,
+      "selection": "validation macro F1; accuracy tie breaker",
+      "sha256": "142aea7e8c646936ee86f110a3242fe65e9ef47c6fca95f6a90dcf31ce96c146"
+    },
+    {
+      "key": "hog_linear_svm",
+      "path": "models/baselines/hog_linear_svm.joblib",
+      "features": "hog",
+      "parameters": {
+        "C": 0.1,
+        "dual": "auto",
+        "max_iter": 10000
+      },
+      "validation_accuracy": 0.8403333333333334,
+      "validation_macro_f1": 0.839119970615623,
+      "selection": "validation macro F1; accuracy tie breaker",
+      "sha256": "5bc4f918fab3ee9db2c60ca680b5ddef8e95c580bae4577e9d2ac227086c706c"
+    },
+    {
+      "key": "pixels_logistic_regression",
+      "path": "models/baselines/pixels_logistic_regression.joblib",
+      "features": "pixels",
+      "parameters": {
+        "C": 0.1,
+        "max_iter": 1000,
+        "solver": "lbfgs"
+      },
+      "validation_accuracy": 0.8375,
+      "validation_macro_f1": 0.8374262149984585,
+      "selection": "validation macro F1; accuracy tie breaker",
+      "sha256": "0a13c05f80319ea3b3b941e6d61f2dcaad11fe57f38f5f2581aa78a6cd3d8565"
+    },
+    {
+      "key": "pixels_knn",
+      "path": "models/baselines/pixels_knn.joblib",
+      "features": "pixels",
+      "parameters": {
+        "metric": "euclidean",
+        "n_neighbors": 5,
+        "weights": "distance"
+      },
+      "validation_accuracy": 0.8346666666666667,
+      "validation_macro_f1": 0.8346118367252592,
+      "selection": "validation macro F1; accuracy tie breaker",
+      "sha256": "bfdbb36010f3b7d18e5d583924b7497a9980b0a4d11458a12e74dd2422a27040"
+    },
+    {
+      "key": "hog_random_forest",
+      "path": "models/baselines/hog_random_forest.joblib",
+      "features": "hog",
+      "parameters": {
+        "max_depth": 20,
+        "max_features": "sqrt",
+        "n_estimators": 100
+      },
+      "validation_accuracy": 0.8284166666666667,
+      "validation_macro_f1": 0.8279667394975807,
+      "selection": "validation macro F1; accuracy tie breaker",
+      "sha256": "5a77f7094aad9b5d8c49eefe3aa8695e6ddb48c68de989c629745a69bf63a289"
+    },
+    {
+      "key": "hog_knn",
+      "path": "models/baselines/hog_knn.joblib",
+      "features": "hog",
+      "parameters": {
+        "metric": "euclidean",
+        "n_neighbors": 5,
+        "weights": "distance"
+      },
+      "validation_accuracy": 0.8224166666666667,
+      "validation_macro_f1": 0.8224536774725972,
+      "selection": "validation macro F1; accuracy tie breaker",
+      "sha256": "cff62d50cd12ea2970f022f2a4f245ec24fa26c3619d6aa8cf86952672173c9a"
+    },
+    {
+      "key": "pixels_linear_svm",
+      "path": "models/baselines/pixels_linear_svm.joblib",
+      "features": "pixels",
+      "parameters": {
+        "C": 0.1,
+        "dual": "auto",
+        "max_iter": 10000
+      },
+      "validation_accuracy": 0.81925,
+      "validation_macro_f1": 0.8178843278475295,
+      "selection": "validation macro F1; accuracy tie breaker",
+      "sha256": "c2003085a223d91c36b99139765592e7ecffe88aab834365e99c6b25149b6615"
+    }
+  ],
+  "protected_sha256": {
+    "src/data.py": "dbcf1033a0ccb94e195faef8140de6b4045480507c24901633f539c60b4c96fc",
+    "src/baselines.py": "2983c6cb6738170e8c43b28c894855e7dd6c4c52132c6c9a7e3862d98d542d67",
+    "src/model.py": "891d42fb89f8eaad336d1f5d4ae461cd331e1f36950ee8428fe70a5544a82ac7",
+    "src/train.py": "a2e1faf320e32df384e3c5abbc48df1e31d0dde4119fbe9c56aef7424136ad36",
+    "data/processed/train_validation_split.npz": "3d7509951b1f4a94b9755b70092a448e9239fe6e26b8eb2f5a8e657cb2454a72",
+    "data/processed/baseline_train_indices.npy": "7c05a2588567271b6fc78b5c7f7898e94410800228c9c37ef4c7490bc27947b5",
+    "data/processed/preprocessing.json": "59be518b383388cff51beb4078e75b32d468435175fbfb77d50b7325e10c551d",
+    "notebooks/reference/LAB_12_CNN_Fashion_mnist.ipynb": "5ed441f826430f84f6f70f4eb94d1149fb1508025e55db171113485e45513909"
+  },
+  "deployment_choice_before_test": "cnn",
+  "choice_basis": "CNN has highest validation macro F1; primary baseline is pixel Random Forest. All nine configurations are reported; test scores will not be used for tuning."
+}

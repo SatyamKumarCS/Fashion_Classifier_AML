@@ -1,0 +1,181 @@
+model,true,predicted,count,upper_body_pair
+cnn,Shirt,T-shirt/top,148,True
+cnn,Shirt,Coat,127,True
+cnn,Pullover,Coat,111,True
+cnn,Shirt,Pullover,83,True
+cnn,T-shirt/top,Shirt,74,True
+cnn,Coat,Pullover,50,True
+cnn,Pullover,Shirt,38,True
+cnn,Dress,Shirt,37,False
+cnn,Coat,Dress,34,False
+cnn,Dress,Coat,33,False
+cnn,Sandal,Sneaker,33,False
+cnn,Ankle boot,Sneaker,30,False
+cnn,Coat,Shirt,29,True
+cnn,Shirt,Dress,29,False
+cnn,Sneaker,Ankle boot,27,False
+cnn,T-shirt/top,Dress,25,False
+cnn,Trouser,Dress,21,False
+cnn,T-shirt/top,Pullover,19,True
+cnn,Dress,T-shirt/top,18,False
+cnn,Sandal,Ankle boot,17,False
+cnn,Pullover,T-shirt/top,16,True
+cnn,Dress,Pullover,14,False
+cnn,Shirt,Bag,12,False
+cnn,T-shirt/top,Bag,8,False
+cnn,Pullover,Dress,8,False
+cnn,T-shirt/top,Coat,7,True
+cnn,Trouser,Coat,5,False
+cnn,Bag,Dress,5,False
+cnn,Trouser,Shirt,4,False
+cnn,Sneaker,Sandal,4,False
+cnn,Bag,Coat,4,False
+cnn,Bag,Sneaker,4,False
+cnn,Ankle boot,Sandal,4,False
+cnn,Trouser,Bag,2,False
+cnn,Shirt,Trouser,2,False
+cnn,Bag,Trouser,2,False
+cnn,Bag,Pullover,2,False
+cnn,Bag,Shirt,2,False
+cnn,T-shirt/top,Sandal,1,False
+cnn,T-shirt/top,Ankle boot,1,False
+cnn,Pullover,Trouser,1,False
+cnn,Pullover,Bag,1,False
+cnn,Dress,Trouser,1,False
+cnn,Dress,Bag,1,False
+cnn,Coat,Trouser,1,False
+cnn,Coat,Bag,1,False
+cnn,Sandal,Bag,1,False
+cnn,Bag,T-shirt/top,1,False
+cnn,Bag,Sandal,1,False
+cnn,Ankle boot,Shirt,1,False
+cnn,T-shirt/top,Trouser,0,False
+cnn,T-shirt/top,Sneaker,0,False
+cnn,Trouser,T-shirt/top,0,False
+cnn,Trouser,Pullover,0,False
+cnn,Trouser,Sandal,0,False
+cnn,Trouser,Sneaker,0,False
+cnn,Trouser,Ankle boot,0,False
+cnn,Pullover,Sandal,0,False
+cnn,Pullover,Sneaker,0,False
+cnn,Pullover,Ankle boot,0,False
+cnn,Dress,Sandal,0,False
+cnn,Dress,Sneaker,0,False
+cnn,Dress,Ankle boot,0,False
+cnn,Coat,T-shirt/top,0,True
+cnn,Coat,Sandal,0,False
+cnn,Coat,Sneaker,0,False
+cnn,Coat,Ankle boot,0,False
+cnn,Sandal,T-shirt/top,0,False
+cnn,Sandal,Trouser,0,False
+cnn,Sandal,Pullover,0,False
+cnn,Sandal,Dress,0,False
+cnn,Sandal,Coat,0,False
+cnn,Sandal,Shirt,0,False
+cnn,Shirt,Sandal,0,False
+cnn,Shirt,Sneaker,0,False
+cnn,Shirt,Ankle boot,0,False
+cnn,Sneaker,T-shirt/top,0,False
+cnn,Sneaker,Trouser,0,False
+cnn,Sneaker,Pullover,0,False
+cnn,Sneaker,Dress,0,False
+cnn,Sneaker,Coat,0,False
+cnn,Sneaker,Shirt,0,False
+cnn,Sneaker,Bag,0,False
+cnn,Bag,Ankle boot,0,False
+cnn,Ankle boot,T-shirt/top,0,False
+cnn,Ankle boot,Trouser,0,False
+cnn,Ankle boot,Pullover,0,False
+cnn,Ankle boot,Dress,0,False
+cnn,Ankle boot,Coat,0,False
+cnn,Ankle boot,Bag,0,False
+pixels_random_forest,Shirt,T-shirt/top,170,True
+pixels_random_forest,Shirt,Pullover,129,True
+pixels_random_forest,Pullover,Coat,124,True
+pixels_random_forest,Coat,Pullover,124,True
+pixels_random_forest,Shirt,Coat,118,True
+pixels_random_forest,T-shirt/top,Shirt,88,True
+pixels_random_forest,Pullover,Shirt,65,True
+pixels_random_forest,Sneaker,Ankle boot,59,False
+pixels_random_forest,T-shirt/top,Dress,46,False
+pixels_random_forest,Coat,Shirt,44,True
+pixels_random_forest,Sandal,Sneaker,40,False
+pixels_random_forest,Ankle boot,Sneaker,40,False
+pixels_random_forest,Coat,Dress,38,False
+pixels_random_forest,Dress,Coat,36,False
+pixels_random_forest,Trouser,Dress,35,False
+pixels_random_forest,Dress,Shirt,31,False
+pixels_random_forest,Shirt,Dress,31,False
+pixels_random_forest,Dress,T-shirt/top,23,False
+pixels_random_forest,Shirt,Bag,22,False
+pixels_random_forest,T-shirt/top,Pullover,20,True
+pixels_random_forest,Sneaker,Sandal,19,False
+pixels_random_forest,Dress,Pullover,17,False
+pixels_random_forest,Sandal,Ankle boot,17,False
+pixels_random_forest,T-shirt/top,Bag,15,False
+pixels_random_forest,Ankle boot,Sandal,11,False
+pixels_random_forest,Pullover,Dress,10,False
+pixels_random_forest,Bag,Shirt,10,False
+pixels_random_forest,Pullover,T-shirt/top,9,True
+pixels_random_forest,Bag,Pullover,9,False
+pixels_random_forest,T-shirt/top,Coat,8,True
+pixels_random_forest,Trouser,Shirt,8,False
+pixels_random_forest,Trouser,Pullover,6,False
+pixels_random_forest,Pullover,Bag,6,False
+pixels_random_forest,Trouser,Coat,5,False
+pixels_random_forest,Bag,Coat,5,False
+pixels_random_forest,Coat,Bag,4,False
+pixels_random_forest,Bag,Sneaker,4,False
+pixels_random_forest,Trouser,T-shirt/top,3,False
+pixels_random_forest,Sandal,Bag,3,False
+pixels_random_forest,Bag,Dress,3,False
+pixels_random_forest,Dress,Trouser,2,False
+pixels_random_forest,Dress,Bag,2,False
+pixels_random_forest,Bag,Trouser,2,False
+pixels_random_forest,Bag,Sandal,2,False
+pixels_random_forest,Ankle boot,Bag,2,False
+pixels_random_forest,T-shirt/top,Sandal,1,False
+pixels_random_forest,Trouser,Bag,1,False
+pixels_random_forest,Coat,Trouser,1,False
+pixels_random_forest,Coat,Sandal,1,False
+pixels_random_forest,Sandal,Dress,1,False
+pixels_random_forest,Shirt,Trouser,1,False
+pixels_random_forest,Bag,T-shirt/top,1,False
+pixels_random_forest,Bag,Ankle boot,1,False
+pixels_random_forest,T-shirt/top,Trouser,0,False
+pixels_random_forest,T-shirt/top,Sneaker,0,False
+pixels_random_forest,T-shirt/top,Ankle boot,0,False
+pixels_random_forest,Trouser,Sandal,0,False
+pixels_random_forest,Trouser,Sneaker,0,False
+pixels_random_forest,Trouser,Ankle boot,0,False
+pixels_random_forest,Pullover,Trouser,0,False
+pixels_random_forest,Pullover,Sandal,0,False
+pixels_random_forest,Pullover,Sneaker,0,False
+pixels_random_forest,Pullover,Ankle boot,0,False
+pixels_random_forest,Dress,Sandal,0,False
+pixels_random_forest,Dress,Sneaker,0,False
+pixels_random_forest,Dress,Ankle boot,0,False
+pixels_random_forest,Coat,T-shirt/top,0,True
+pixels_random_forest,Coat,Sneaker,0,False
+pixels_random_forest,Coat,Ankle boot,0,False
+pixels_random_forest,Sandal,T-shirt/top,0,False
+pixels_random_forest,Sandal,Trouser,0,False
+pixels_random_forest,Sandal,Pullover,0,False
+pixels_random_forest,Sandal,Coat,0,False
+pixels_random_forest,Sandal,Shirt,0,False
+pixels_random_forest,Shirt,Sandal,0,False
+pixels_random_forest,Shirt,Sneaker,0,False
+pixels_random_forest,Shirt,Ankle boot,0,False
+pixels_random_forest,Sneaker,T-shirt/top,0,False
+pixels_random_forest,Sneaker,Trouser,0,False
+pixels_random_forest,Sneaker,Pullover,0,False
+pixels_random_forest,Sneaker,Dress,0,False
+pixels_random_forest,Sneaker,Coat,0,False
+pixels_random_forest,Sneaker,Shirt,0,False
+pixels_random_forest,Sneaker,Bag,0,False
+pixels_random_forest,Ankle boot,T-shirt/top,0,False
+pixels_random_forest,Ankle boot,Trouser,0,False
+pixels_random_forest,Ankle boot,Pullover,0,False
+pixels_random_forest,Ankle boot,Dress,0,False
+pixels_random_forest,Ankle boot,Coat,0,False
+pixels_random_forest,Ankle boot,Shirt,0,False

@@ -1,0 +1,91 @@
+model,label,category,recall
+cnn,0,T-shirt/top,0.865
+cnn,1,Trouser,0.968
+cnn,2,Pullover,0.825
+cnn,3,Dress,0.896
+cnn,4,Coat,0.885
+cnn,5,Sandal,0.949
+cnn,6,Shirt,0.599
+cnn,7,Sneaker,0.969
+cnn,8,Bag,0.979
+cnn,9,Ankle boot,0.965
+pixels_random_forest,0,T-shirt/top,0.822
+pixels_random_forest,1,Trouser,0.942
+pixels_random_forest,2,Pullover,0.786
+pixels_random_forest,3,Dress,0.889
+pixels_random_forest,4,Coat,0.788
+pixels_random_forest,5,Sandal,0.939
+pixels_random_forest,6,Shirt,0.529
+pixels_random_forest,7,Sneaker,0.922
+pixels_random_forest,8,Bag,0.963
+pixels_random_forest,9,Ankle boot,0.947
+hog_logistic_regression,0,T-shirt/top,0.796
+hog_logistic_regression,1,Trouser,0.944
+hog_logistic_regression,2,Pullover,0.712
+hog_logistic_regression,3,Dress,0.837
+hog_logistic_regression,4,Coat,0.72
+hog_logistic_regression,5,Sandal,0.938
+hog_logistic_regression,6,Shirt,0.57
+hog_logistic_regression,7,Sneaker,0.906
+hog_logistic_regression,8,Bag,0.959
+hog_logistic_regression,9,Ankle boot,0.945
+hog_linear_svm,0,T-shirt/top,0.788
+hog_linear_svm,1,Trouser,0.94
+hog_linear_svm,2,Pullover,0.709
+hog_linear_svm,3,Dress,0.844
+hog_linear_svm,4,Coat,0.712
+hog_linear_svm,5,Sandal,0.93
+hog_linear_svm,6,Shirt,0.523
+hog_linear_svm,7,Sneaker,0.906
+hog_linear_svm,8,Bag,0.954
+hog_linear_svm,9,Ankle boot,0.95
+pixels_logistic_regression,0,T-shirt/top,0.794
+pixels_logistic_regression,1,Trouser,0.947
+pixels_logistic_regression,2,Pullover,0.701
+pixels_logistic_regression,3,Dress,0.841
+pixels_logistic_regression,4,Coat,0.741
+pixels_logistic_regression,5,Sandal,0.894
+pixels_logistic_regression,6,Shirt,0.537
+pixels_logistic_regression,7,Sneaker,0.927
+pixels_logistic_regression,8,Bag,0.916
+pixels_logistic_regression,9,Ankle boot,0.929
+pixels_knn,0,T-shirt/top,0.82
+pixels_knn,1,Trouser,0.952
+pixels_knn,2,Pullover,0.762
+pixels_knn,3,Dress,0.852
+pixels_knn,4,Coat,0.719
+pixels_knn,5,Sandal,0.768
+pixels_knn,6,Shirt,0.542
+pixels_knn,7,Sneaker,0.936
+pixels_knn,8,Bag,0.931
+pixels_knn,9,Ankle boot,0.959
+hog_random_forest,0,T-shirt/top,0.777
+hog_random_forest,1,Trouser,0.902
+hog_random_forest,2,Pullover,0.704
+hog_random_forest,3,Dress,0.83
+hog_random_forest,4,Coat,0.708
+hog_random_forest,5,Sandal,0.923
+hog_random_forest,6,Shirt,0.564
+hog_random_forest,7,Sneaker,0.892
+hog_random_forest,8,Bag,0.956
+hog_random_forest,9,Ankle boot,0.941
+hog_knn,0,T-shirt/top,0.771
+hog_knn,1,Trouser,0.948
+hog_knn,2,Pullover,0.668
+hog_knn,3,Dress,0.748
+hog_knn,4,Coat,0.72
+hog_knn,5,Sandal,0.829
+hog_knn,6,Shirt,0.595
+hog_knn,7,Sneaker,0.931
+hog_knn,8,Bag,0.95
+hog_knn,9,Ankle boot,0.949
+pixels_linear_svm,0,T-shirt/top,0.782
+pixels_linear_svm,1,Trouser,0.946
+pixels_linear_svm,2,Pullover,0.694
+pixels_linear_svm,3,Dress,0.805
+pixels_linear_svm,4,Coat,0.73
+pixels_linear_svm,5,Sandal,0.857
+pixels_linear_svm,6,Shirt,0.485
+pixels_linear_svm,7,Sneaker,0.904
+pixels_linear_svm,8,Bag,0.884
+pixels_linear_svm,9,Ankle boot,0.916
