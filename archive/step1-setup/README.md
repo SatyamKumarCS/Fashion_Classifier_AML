@@ -1,9 +1,9 @@
 # Step 1 setup scaffold (archived)
 
 This is the original Step 1 environment scaffold, kept for reference. It isn't used by the
-project in `fashion-classifier/`, which now uses `pyproject.toml` and `uv.lock`.
+project at the repository root, which now uses `pyproject.toml` and `uv.lock`.
 
-Moved here from the repository root:
+Moved here from the original repository root:
 
 - `notebooks/00_setup.ipynb`: the Step 1 setup notebook. It finds `scripts/check_environment.py` in its parent folders, so it still runs from here.
 - `scripts/check_environment.py`: the Step 1 dependency check. The project has a newer version.
@@ -11,7 +11,7 @@ Moved here from the repository root:
 
 Removed after verification:
 
-- `notebooks/reference/LAB_12_CNN_Fashion_mnist.ipynb`: byte-identical to the hash-protected copy in `fashion-classifier/notebooks/reference/`.
+- `notebooks/reference/LAB_12_CNN_Fashion_mnist.ipynb`: byte-identical to the hash-protected copy in `notebooks/reference/` (formerly `fashion-classifier/notebooks/reference/`).
 - `data/`, `models/`, `reports/figures/`: empty placeholder folders.
 - `src/__init__.py`: a one-line placeholder.
 

@@ -2,22 +2,71 @@
 
 Inventory Image Tagging via Handcrafted Features and a Small CNN.
 
+Fashion-MNIST flattened-pixel and HOG baselines compared with a small CNN, plus a local
+Gradio demo. The committed CNN scores **89.00%** on the official test set, against 85.27% for
+the best classical baseline (pixel Random Forest).
+
 **Status: Step 7 complete.** Training, frozen-model evaluation, reusable prediction and
 a tested local Gradio demo are implemented. The notebook is executed. Hosting remains.
 
-## Open the project
-
-For this copied workspace, reuse the existing Mac environment if its Python executable
-works. Fresh clones should run `bash scripts/setup_mac.sh` from `fashion-classifier/`
-to create an environment, then generate the required data and models as described below.
-
-```bash
-cd fashion-classifier  # from the repository root
-source .venv/bin/activate
-python -m jupyterlab notebooks/exploration.ipynb
+```
+.
+├── src/                 data, baselines, CNN, training, evaluation, prediction, v2 experiment
+├── scripts/             setup, reproduction pipeline, verification scripts
+├── tests/               pytest suite
+├── app.py               Gradio demo
+├── notebooks/           executed workflow notebook and the unmodified reference lab
+├── assets/examples/     demo sample images
+├── reports/             committed results, figures, integrity manifests, milestone history
+├── data/  models/       generated datasets and weights (gitignored except placeholders)
+├── runs/                generated pipeline and v2 experiment outputs (gitignored)
+├── archive/step1-setup/ original Step 1 scaffold, kept for reference only
+└── pyproject.toml  uv.lock  Dockerfile  compose.yaml
 ```
 
-Select **Python (AML Fashion)**. Run All now reuses completed baseline, CNN and test results;
+## Setup
+
+Dependencies are declared in `pyproject.toml` and pinned in the committed `uv.lock`
+(Python 3.11). Both setups install exactly that lock. Run every command from the
+repository root.
+
+**Docker** (recommended; only Docker Desktop or Docker Engine with compose is needed):
+
+```bash
+docker compose build                 # image: Python 3.11, CPU-only PyTorch, locked dependencies
+docker compose run --rm pipeline     # fresh clone: download data, train, evaluate, install models/
+docker compose up -d app             # Gradio demo at http://127.0.0.1:7860
+docker compose run --rm verify       # artifact hashes, prediction contract, HTTP checks against app
+docker compose up notebook           # JupyterLab at http://127.0.0.1:8888 (login URL: docker compose logs notebook)
+```
+
+**Native** with [uv](https://docs.astral.sh/uv/). uv downloads Python 3.11 if it's missing:
+
+```bash
+bash scripts/setup_mac.sh            # uv sync --locked, environment check, Jupyter kernel
+uv run python app.py                 # or: source .venv/bin/activate, then plain python
+uv run pytest                        # test suite
+```
+
+`pipeline` runs `scripts/reproduce.py`. It downloads the checksum-verified archives and runs
+baselines, CNN training and frozen-model test evaluation in a clean `runs/reproduce/`
+directory, so the committed reports stay protected. It then installs the trained models into
+`models/`, but never replaces different models already there. It also copies the training
+archives and split files into `data/` for the verification scripts; the test set is never
+copied. Completed stages are skipped on rerun. If a stage fails, delete `runs/reproduce/`
+and rerun. Containers have no MPS/GPU, so everything runs on CPU: about 15–20 minutes,
+mostly the linear-SVM baselines. Results can differ slightly from the committed MPS run;
+see [Model provenance](#model-provenance). `app` mounts `models/` read-only and is limited
+to 1 GB and 2 CPUs. `notebook` mounts the whole project read-write, so running its cells can
+rewrite reports. Containers run as an unprivileged user.
+
+Run other commands in the same image, for example
+`docker compose run --rm app python scripts/check_environment.py`. After changing code,
+rebuild the image (`docker compose build`), because the code is copied into the image.
+Dependency changes go through uv: edit `pyproject.toml`, run `uv lock`, and commit both files.
+Platforms that need a `requirements.txt` can generate one with `uv export`.
+
+In JupyterLab, select **Python (AML Fashion)**. Run All now reuses completed baseline, CNN and test results;
 it does not retrain models. Training-only sections never load the official test examples.
 Earlier pre-test absence checks permit test archives once the final freeze manifest exists.
 The original reference notebook is preserved under `notebooks/reference/`; it is a learning
@@ -91,20 +140,86 @@ Do not tune on these test results and report the same test set as a new untouche
 | `reports/progress.md` | Dated milestone handoff notes |
 | `reports/step*-execution.log` | Actual local execution logs |
 | `reports/step*-backup/` | Preserved working files before each milestone |
-| `scripts/` | Original Mac setup and environment verification |
+| `scripts/setup_mac.sh`, `scripts/check_environment.py` | Native uv setup and environment verification |
 | `app.py` | Local upload-and-predict Gradio demo using the saved CNN |
 | `assets/examples/` | Eleven pre-exported training-only samples and their provenance |
 | `scripts/verify_demo.py` | Callback, HTTP-upload and isolated-startup tests |
 | `reports/demo/` | Verification reports, browser screenshot and protected artifact fingerprints |
+| `pyproject.toml`, `uv.lock`, `.python-version` | Dependency declaration and the exact locked environment |
+| `Dockerfile`, `compose.yaml`, `.dockerignore` | Container image and the pipeline/app/verify/notebook services |
+| `scripts/reproduce.py` | Full pipeline in `runs/reproduce/`, then model installation with provenance |
+| `scripts/verify_artifacts.py` | Checks every hash-protected file and identifies the installed models |
+| `models/PROVENANCE.json` | Origin, hashes and test accuracy of reproduced models (absent for original weights) |
+| `src/train_v2.py` | v2 ablation experiment: training, validation-only selection, one test evaluation |
+| `tests/` | pytest suite: integrity, prediction contract, v2 rule and guards, install safety |
+| `runs/` | Generated pipeline and v2 outputs (gitignored) |
 
-The local lockfile and environment report describe this Mac; workspace/Linux reports are
-historical records from a different environment. Large data/model artifacts and local
-lockfiles/reports are excluded by the existing `.gitignore`; preserve them separately.
+`reports/environment-*.txt` from the native setup describes the local machine; the
+workspace/Linux reports are historical records from a different environment. Data, model
+weights and `runs/` are excluded by `.gitignore`; preserve them separately.
+
+`archive/step1-setup/` holds the original Step 1 scaffold, kept for reference. The project
+doesn't use it, and it's excluded from the Docker image.
+
+## Model provenance
+
+The checkpoints behind the committed results (CNN 89.00% test accuracy) are not in this
+repository; `reports/final_evaluation/frozen-models.json` records their hashes. A fresh
+clone gets its models from `pipeline`, which retrains them on CPU with the same code and a
+byte-identical data split. The committed CPU reproduction scored **88.91%** for the CNN and
+85.27% for pixel Random Forest. These are reproduced models, not the original checkpoints, so
+`reproduce.py` records them in `models/PROVENANCE.json`, together with the matching manifest
+`models/reproduced-sha256.json`.
+
+`python scripts/verify_artifacts.py` reports which case applies. Either way, every tracked
+report, source file and the reference notebook must match the committed hashes. Installed
+models must match either the original frozen hashes or their provenance record.
+`verify_demo.py` picks the right manifest automatically (`--manifest` overrides). The
+notebook's Step 6 verification cell compares the checkpoint against the original contract,
+so it only passes with the original weights.
+
+## v2 experiment (in progress)
+
+`src/train_v2.py` asks whether the 12,000-image budget, the lack of augmentation and the
+small CNN limit accuracy. Each of five configurations changes one factor relative to its
+comparison. All share Adam (lr 1e-3, weight decay 1e-4), batch 128, early stopping on
+validation loss (patience 5, at most 40 epochs) and the seed-42 split. Each runs with
+seeds 42, 1 and 2:
+
+| Config | Training images | Augmentation | Network |
+|---|---|---|---|
+| `v1_12k` | 12,000 (v1 subset) | – | v1 SmallCNN (reference, inside the v2 training loop) |
+| `v1_48k` | 48,000 | – | v1 SmallCNN |
+| `v1_48k_aug` | 48,000 | flip + ≤2 px shift | v1 SmallCNN |
+| `deep_48k` | 48,000 | – | 3×(2 conv) blocks, 585k parameters |
+| `deep_48k_aug` | 48,000 | flip + ≤2 px shift | 3×(2 conv) blocks |
+
+The train–validation gap is measured in eval mode, without augmentation, on the same
+12,000 v1 training images for every configuration.
+
+```bash
+python -m src.train_v2 train --config deep_48k --seed 42   # one run → runs/v2/experiments/
+python -m src.train_v2 report                              # validation comparison table
+python -m src.train_v2 select                              # freeze the choice (validation only)
+python -m src.train_v2 test                                # official test set, exactly once
+```
+
+Selection uses validation data only, through a paired two-level bootstrap. Validation
+images are resampled jointly for each pair of configurations, and seed runs are resampled
+within each configuration. The rule picks the simplest configuration whose accuracy is not
+distinguishable from the best, and adopts it only if it clearly beats `v1_12k`. Otherwise
+v1 stays and the test set is not touched. The full rule and its revision history are in
+`SELECTION_RULE` and `RULE_HISTORY` and are copied into `runs/v2/selection.json`. Training
+is refused once a selection exists. The test evaluation writes a marker before opening the
+test set, so it can't be repeated. The v1 code, models, reports and 89.00% result are only
+read, never modified.
 
 ## Reproducibility
 
-For a fresh project copy without completed artifacts, run these commands in order from
-the project root after using the original setup script:
+With Docker, `docker compose run --rm pipeline` does all of the following in a separate run
+directory. For a fresh project copy without completed artifacts in the project itself, run
+these commands in order from the project root, inside the environment (`uv run …` or the
+`app` image):
 
 ```bash
 python -m jupyterlab notebooks/exploration.ipynb
@@ -149,9 +264,12 @@ result.preview.save("processed-preview.png")
 From the active environment in the project root, try the saved **training** example:
 
 ```bash
-python -m src.predict reports/inference/example-input.png --preview reports/inference/example-preview.png
+python -m src.predict reports/inference/example-input.png --preview /tmp/example-preview.png
 python scripts/verify_prediction.py
 ```
+
+The preview goes to `/tmp` because `reports/inference/example-preview.png` is a
+hash-protected record.
 
 CLI prediction prints JSON. Use `--background light` for a light-background input.
 Native nonblank 28x28 uint8 grayscale on a dark background is pixel-identical to training.
@@ -181,11 +299,10 @@ it is not needed by the eventual demo at startup.
 
 ## Step 7 — local Gradio demo
 
-From the existing environment in the project root:
+From the project root, either `docker compose up -d app`, or natively:
 
 ```bash
-source .venv/bin/activate
-python app.py
+uv run python app.py
 ```
 
 Open http://127.0.0.1:7860. Upload an image or choose a training sample, pick the image's
@@ -205,10 +322,10 @@ Startup imports no training/dataset/evaluation module and never downloads data o
 Example PNGs are exported once from the saved training subset; provenance is in
 `assets/examples/manifest.json`. They are illustrative samples, not a new accuracy claim.
 
-With the server running:
+With the server running (in Docker, `docker compose run --rm verify` does this too):
 
 ```bash
-python scripts/verify_demo.py
+uv run python scripts/verify_demo.py
 ```
 
 For another port, add `--url http://127.0.0.1:7861`. This checks callback equivalence,
