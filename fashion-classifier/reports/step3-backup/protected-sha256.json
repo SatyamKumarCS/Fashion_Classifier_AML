@@ -1,0 +1,13 @@
+{
+  "notebooks/reference/LAB_12_CNN_Fashion_mnist.ipynb": "5ed441f826430f84f6f70f4eb94d1149fb1508025e55db171113485e45513909",
+  "data/processed/train_validation_split.npz": "3d7509951b1f4a94b9755b70092a448e9239fe6e26b8eb2f5a8e657cb2454a72",
+  "data/processed/baseline_train_indices.npy": "7c05a2588567271b6fc78b5c7f7898e94410800228c9c37ef4c7490bc27947b5",
+  "models/baselines/hog_knn.joblib": "cff62d50cd12ea2970f022f2a4f245ec24fa26c3619d6aa8cf86952672173c9a",
+  "models/baselines/hog_linear_svm.joblib": "5bc4f918fab3ee9db2c60ca680b5ddef8e95c580bae4577e9d2ac227086c706c",
+  "models/baselines/hog_logistic_regression.joblib": "142aea7e8c646936ee86f110a3242fe65e9ef47c6fca95f6a90dcf31ce96c146",
+  "models/baselines/hog_random_forest.joblib": "5a77f7094aad9b5d8c49eefe3aa8695e6ddb48c68de989c629745a69bf63a289",
+  "models/baselines/pixels_knn.joblib": "bfdbb36010f3b7d18e5d583924b7497a9980b0a4d11458a12e74dd2422a27040",
+  "models/baselines/pixels_linear_svm.joblib": "c2003085a223d91c36b99139765592e7ecffe88aab834365e99c6b25149b6615",
+  "models/baselines/pixels_logistic_regression.joblib": "0a13c05f80319ea3b3b941e6d61f2dcaad11fe57f38f5f2581aa78a6cd3d8565",
+  "models/baselines/pixels_random_forest.joblib": "990446929fc0d0242965a418c1b42bc37c62946ee77003831c7e2d04ded2015b"
+}

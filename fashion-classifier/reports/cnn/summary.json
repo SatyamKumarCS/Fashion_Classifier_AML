@@ -1,0 +1,72 @@
+{
+  "milestone": 4,
+  "status": "complete",
+  "model_config": {
+    "in_channels": 1,
+    "channels": [
+      32,
+      64
+    ],
+    "hidden_units": [
+      128,
+      64
+    ],
+    "dropout": 0.4,
+    "num_classes": 10,
+    "input_shape": [
+      1,
+      28,
+      28
+    ]
+  },
+  "training_config": {
+    "seed": 42,
+    "batch_size": 128,
+    "max_epochs": 25,
+    "patience": 5,
+    "min_delta": 0.0,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "training_budget": 12000,
+    "selection_metric": "minimum validation cross-entropy loss",
+    "augmentation": "none",
+    "num_workers": 0,
+    "cpu_threads": 2
+  },
+  "class_names": [
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Ankle boot"
+  ],
+  "preprocessing": "uint8 -> float32 / 255; (N,1,28,28); original orientation",
+  "split_sha256": "3d7509951b1f4a94b9755b70092a448e9239fe6e26b8eb2f5a8e657cb2454a72",
+  "subset_sha256": "113bf56f3e65a89c8388429f91d197a3297be0213e0213b100b3ed0d3ed7d9dd",
+  "device": "mps",
+  "torch": "2.14.1",
+  "python": "3.11.17",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "numpy": "1.26.4",
+  "seed_limitations": "Single seeded run; exact cross-device/version reproducibility is not guaranteed.",
+  "training_images": 12000,
+  "validation_images": 12000,
+  "trainable_parameters": 429450,
+  "epochs_run": 14,
+  "best_epoch": 9,
+  "early_stopped": true,
+  "best_validation_loss": 0.2848129572868347,
+  "validation_accuracy": 0.89925,
+  "validation_macro_f1": 0.8980204037798911,
+  "training_and_validation_seconds": 19.389053000000786,
+  "checkpoint_bytes": 1725337,
+  "checkpoint_reload_verified": true,
+  "official_test_loaded": false,
+  "comparison_note": "Same 12000 training and 12000 validation examples as baselines. CNN epoch chosen by validation loss; baselines selected by validation macro F1. Different search and optimization budgets; single seeded run. No official test scores."
+}

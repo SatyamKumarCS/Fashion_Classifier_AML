@@ -1,0 +1,18 @@
+Device: mps; trainable parameters: 429,450
+Training: 12000; validation: 12000; official test: not loaded
+Epoch 01: train loss=0.9625, val loss=0.4903, val accuracy=0.8267, val F1=0.8247, 4.9s [best saved]
+Epoch 02: train loss=0.5636, val loss=0.3895, val accuracy=0.8558, val F1=0.8511, 1.1s [best saved]
+Epoch 03: train loss=0.4728, val loss=0.3615, val accuracy=0.8696, val F1=0.8658, 1.1s [best saved]
+Epoch 04: train loss=0.4202, val loss=0.3296, val accuracy=0.8842, val F1=0.8833, 1.1s [best saved]
+Epoch 05: train loss=0.3835, val loss=0.3191, val accuracy=0.8848, val F1=0.8813, 1.1s [best saved]
+Epoch 06: train loss=0.3510, val loss=0.3523, val accuracy=0.8721, val F1=0.8710, 1.1s
+Epoch 07: train loss=0.3250, val loss=0.2951, val accuracy=0.8953, val F1=0.8950, 1.1s [best saved]
+Epoch 08: train loss=0.3030, val loss=0.2940, val accuracy=0.8952, val F1=0.8931, 1.1s [best saved]
+Epoch 09: train loss=0.2816, val loss=0.2848, val accuracy=0.8992, val F1=0.8980, 1.1s [best saved]
+Epoch 10: train loss=0.2684, val loss=0.2894, val accuracy=0.8972, val F1=0.8951, 1.1s
+Epoch 11: train loss=0.2532, val loss=0.2910, val accuracy=0.9011, val F1=0.9012, 1.1s
+Epoch 12: train loss=0.2419, val loss=0.2918, val accuracy=0.9032, val F1=0.9029, 1.1s
+Epoch 13: train loss=0.2286, val loss=0.3003, val accuracy=0.8973, val F1=0.8967, 1.1s
+Epoch 14: train loss=0.2155, val loss=0.2865, val accuracy=0.9034, val F1=0.9031, 1.1s
+Early stopping: 5 epochs without validation-loss improvement.
+Best epoch 9; validation accuracy=0.8992, macro F1=0.8980. Reload verified.

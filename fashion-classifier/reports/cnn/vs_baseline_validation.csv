@@ -1,0 +1,3 @@
+model,training_images,validation_accuracy,validation_macro_f1
+pixels/random_forest,12000,0.8645833333333334,0.8628135012663563
+small CNN (best validation-loss checkpoint),12000,0.89925,0.8980204037798911
