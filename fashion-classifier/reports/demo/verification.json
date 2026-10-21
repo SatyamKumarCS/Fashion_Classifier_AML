@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:7860",
+  "sample_count": 11,
+  "check_groups": [
+    "11 training samples: callback scores/preview match reusable predictor; one cached model",
+    "missing/blank input and invalid background clear results; reset/clear restore ready state",
+    "live localhost page/config, queued prediction and original-format upload preprocessing",
+    "HTTP uploads: native PNG, light background, RGBA alpha and EXIF JPEG match direct inference",
+    "HTTP missing/blank input and clear endpoint return empty results without stale prediction",
+    "isolated app startup/callback with network blocked and no dataset/training/evaluation modules",
+    "all frozen weights, split files, inference contracts and prior evaluation artifacts unchanged"
+  ],
+  "official_test_loaded": false,
+  "gradio_version": "6.30.0"
+}

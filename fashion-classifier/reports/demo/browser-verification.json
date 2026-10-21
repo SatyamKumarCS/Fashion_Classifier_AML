@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:7860",
+  "observed_checks": [
+    "dark training sample loads and predicts T-shirt/top",
+    "light sample automatically selects light background and predicts T-shirt/top",
+    "Clear removes image and scores and restores dark background and ready message",
+    "all ten class scores and processed preview displayed",
+    "native sample and model preview enlarged for readability without changing inference pixels"
+  ],
+  "screenshot": "reports/demo/demo-screenshot.png"
+}

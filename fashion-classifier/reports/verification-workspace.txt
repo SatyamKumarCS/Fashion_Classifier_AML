@@ -1,0 +1,25 @@
+No broken requirements found.
+Python: 3.12.14 | Linux x86_64
+Interpreter: /workspace/scratch/788e9d1dd3e7/.setup-venv/bin/python
+NOTE: Python 3.11 is the recommended project version.
+PASS import numpy: 1.26.4
+PASS import pandas: 2.3.3
+PASS import scipy: 1.17.1
+PASS import torch: 2.14.1
+PASS import torchvision: 0.29.1
+PASS import sklearn: 1.9.1
+PASS import skimage: 0.26.0
+PASS import matplotlib: 3.11.2
+PASS import gradio: 6.30.0
+PASS import PIL: 12.3.0
+PASS import jupyterlab: 4.6.4
+PASS import ipykernel: 7.4.0
+PASS import nbformat: 5.11.1
+PASS CPU matrix multiplication, gradients, torchvision NMS
+PASS device operation: cpu
+ALL CHECKS PASSED. No dataset downloaded; no model trained.
+
+PASS notebook schema and setup cell execution from notebooks directory.
+PASS shell and Python syntax; original notebook bytes preserved.
+Desktop access: unavailable; no user Desktop changes made.
+Workspace only: Linux Python 3.12.14. Mac Python 3.11 environment must be created and checked locally.
