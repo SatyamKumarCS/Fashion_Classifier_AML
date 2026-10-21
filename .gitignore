@@ -1,18 +1,17 @@
-# Local operating-system and Python files
-.DS_Store
-__pycache__/
-*.py[cod]
 .venv/
-venv/
+__pycache__/
 .ipynb_checkpoints/
+.DS_Store
+data/*
+!data/raw/
+!data/processed/
+data/raw/*
+data/processed/*
+!**/.gitkeep
+models/*
+!models/.gitkeep
+*.pt
+*.pth
 .env
-.env.*
-!.env.example
-
-# Original setup scaffold: preserve directory markers, not generated artifacts
-/data/*
-!/data/.gitkeep
-/models/*
-!/models/.gitkeep
-/requirements-lock*.txt
-/reports/environment-*.txt
+reports/environment-*.txt
+requirements-lock-*.txt
