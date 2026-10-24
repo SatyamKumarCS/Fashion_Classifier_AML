@@ -109,8 +109,14 @@ function stripDarkInLightMode() {
       if (document.body.classList.contains('dark') && !document.body.classList.contains('dark-theme')) {
         document.body.classList.remove('dark');
       }
-      document.querySelectorAll('#scores-label, #scores-label *, .glass-panel, .glass-panel *').forEach(function(el) {
-        if (el.classList.contains('dark')) el.classList.remove('dark');
+      const gContainer = document.querySelector('.gradio-container');
+      if (gContainer && gContainer.classList.contains('dark') && !document.body.classList.contains('dark-theme')) {
+        gContainer.classList.remove('dark');
+      }
+      document.querySelectorAll('#scores-label, #scores-label *, .glass-panel, .glass-panel *, .gradio-container, .gradio-container *').forEach(function(el) {
+        if (el.classList.contains('dark') && !document.body.classList.contains('dark-theme')) {
+          el.classList.remove('dark');
+        }
       });
     }
   } catch(e){}
@@ -665,7 +671,7 @@ def create_demo():
 
                     # Interactive Sample Picker
                     gr.HTML("""
-                    <div style="margin-top: 18px; border-top: 1px solid var(--border-subtle); padding-top: 14px;">
+                    <div style="margin-top: 18px; border-top: 1px solid #f1f5f9; padding-top: 14px;">
                       <h4 class="section-title" style="font-size: 0.9rem; margin-bottom: 4px;">Try a sample image</h4>
                       <p class="section-desc" style="margin-bottom: 8px;">Click on any sample to test the model.</p>
                     </div>

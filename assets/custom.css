@@ -17,13 +17,17 @@
   --text-sub: #64748b;
   --nav-bg: rgba(255, 255, 255, 0.95);
   --nav-border: 1px solid rgba(255, 255, 255, 0.9);
-  --border-subtle: #e2e8f0;
+  --border-subtle: #f1f5f9;
   --input-bg: #fafafa;
   --input-border: #cbd5e1;
   --radius-lg: 20px;
   --radius-md: 14px;
   --radius-sm: 8px;
   --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --background-fill-primary: #ffffff;
+  --background-fill-secondary: #f8fafc;
+  --block-background-fill: #ffffff;
+  --block-border-color: #f1f5f9;
 }
 
 /* ==========================================================================
@@ -59,6 +63,26 @@ html, body, .gradio-container {
 /* ==========================================================================
    Light Mode Strict Card Styles (Prevents OS dark-mode from bleeding in)
    ========================================================================== */
+:root,
+body:not(.dark-theme),
+body:not(.dark-theme) .gradio-container,
+body:not(.dark-theme) .gradio-container.dark,
+body:not(.dark-theme) .dark {
+  --background-fill-primary: #ffffff !important;
+  --background-fill-secondary: #f8fafc !important;
+  --block-background-fill: #ffffff !important;
+  --block-border-color: #f1f5f9 !important;
+  --border-color-primary: #e2e8f0 !important;
+  --border-subtle: #f1f5f9 !important;
+  --color-accent-soft: rgba(37, 99, 235, 0.1) !important;
+  --body-background-fill: #f8fafc !important;
+  --input-background-fill: #ffffff !important;
+  --table-border-color: #f1f5f9 !important;
+  --table-even-background-fill: #ffffff !important;
+  --table-odd-background-fill: #ffffff !important;
+  --panel-background-fill: #ffffff !important;
+}
+
 html:not(.dark-theme) body:not(.dark-theme) .glass-panel,
 html:not(.dark-theme) body:not(.dark-theme) .upload-panel,
 html:not(.dark-theme) body:not(.dark-theme) .results-panel,
@@ -493,20 +517,30 @@ footer { display: none !important; }
   overflow: hidden !important;
 }
 
-/* Image Preview Label Badge Neutralization (Remove Solid Purple Badges) */
+/* Image Preview Label Badge Neutralization (Remove Solid Purple Badges & Toolbars) */
+#upload-image [data-testid="block-label"],
+#upload-image [data-testid="block-info"],
+#upload-image label,
+#upload-image label span,
+#upload-image .block-label,
 #upload-image .label-wrap,
-#user-preview .label-wrap,
-#model-preview .label-wrap {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 4px 8px !important;
-}
-
 #upload-image .label-wrap span,
+#user-preview [data-testid="block-label"],
+#user-preview [data-testid="block-info"],
+#user-preview label,
+#user-preview label span,
+#user-preview .block-label,
+#user-preview .label-wrap,
 #user-preview .label-wrap span,
-#model-preview .label-wrap span {
+#model-preview [data-testid="block-label"],
+#model-preview [data-testid="block-info"],
+#model-preview label,
+#model-preview label span,
+#model-preview .block-label,
+#model-preview .label-wrap,
+#model-preview .label-wrap span,
+.gradio-container [data-testid="block-label"],
+.gradio-container [data-testid="block-info"] {
   background: transparent !important;
   background-color: transparent !important;
   color: #334155 !important;
@@ -514,12 +548,36 @@ footer { display: none !important; }
   font-weight: 600 !important;
   border: none !important;
   box-shadow: none !important;
-  padding: 0 !important;
+  padding: 2px 4px !important;
+}
+
+#upload-image svg,
+#user-preview svg,
+#model-preview svg {
+  fill: #64748b !important;
+  color: #64748b !important;
+}
+
+#user-preview .toolbar,
+#model-preview .toolbar,
+#user-preview [data-testid="image-toolbar"],
+#model-preview [data-testid="image-toolbar"],
+#user-preview .icon-buttons,
+#model-preview .icon-buttons,
+#user-preview .image-frame,
+#model-preview .image-frame {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .dark-theme #upload-image .label-wrap span,
 .dark-theme #user-preview .label-wrap span,
-.dark-theme #model-preview .label-wrap span {
+.dark-theme #model-preview .label-wrap span,
+.dark-theme #upload-image [data-testid="block-label"],
+.dark-theme #user-preview [data-testid="block-label"],
+.dark-theme #model-preview [data-testid="block-label"] {
   color: #cbd5e1 !important;
 }
 
@@ -559,8 +617,20 @@ footer { display: none !important; }
 }
 
 #scores-label .label-wrap,
-#scores-label .output-class {
+#scores-label .output-class,
+#scores-label .empty,
+#scores-label .placeholder,
+#scores-label [data-testid="empty"],
+#scores-label .empty-wrapper {
   display: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 #scores-label .confidence-set {
@@ -676,8 +746,16 @@ footer { display: none !important; }
 /* ==========================================================================
    10-Class Sample Gallery (Horizontal Mockup Grid with Cards)
    ========================================================================== */
-#sample-gallery-wrapper {
+#sample-gallery-wrapper,
+#sample-gallery-wrapper > div,
+#sample-gallery-wrapper .dataset,
+#sample-gallery-wrapper .table-wrap,
+#sample-gallery-wrapper table,
+#sample-gallery-wrapper tbody,
+#sample-gallery-wrapper tr,
+#sample-gallery-wrapper td {
   background: transparent !important;
+  background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
@@ -685,8 +763,20 @@ footer { display: none !important; }
 }
 
 #sample-gallery-wrapper .label-wrap,
-#sample-gallery-wrapper thead {
+#sample-gallery-wrapper thead,
+#sample-gallery-wrapper .search,
+#sample-gallery-wrapper .header,
+#sample-gallery-wrapper caption,
+#sample-gallery-wrapper [data-testid="block-label"],
+#sample-gallery-wrapper [data-testid="block-info"] {
   display: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 #sample-gallery-wrapper .wrap,
@@ -984,8 +1074,6 @@ footer { display: none !important; }
 .info-modal-dialog .tab-bullet-list strong {
   color: #0f172a !important;
 }
-  line-height: 1.55;
-} 
 
 .tab-bullet-list li {
   margin-bottom: 4px;
