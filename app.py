@@ -64,6 +64,52 @@ else:
     #model-preview img, #upload-image img {image-rendering: pixelated; object-fit: contain; width: 100%; height: 100%;}
     '''
 
+HEAD_JS = """
+<script>
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark-theme');
+  const icon = document.getElementById('theme-icon');
+  if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+  try { localStorage.setItem('fash_theme', isDark ? 'dark' : 'light'); } catch(e){}
+}
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    if (localStorage.getItem('fash_theme') === 'dark') {
+      document.body.classList.add('dark-theme');
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.textContent = '☀️';
+    }
+  } catch(e){}
+});
+
+function openInfoTab(tabIndex) {
+  const drawer = document.getElementById('info-drawer');
+  if (drawer) {
+    const summary = drawer.querySelector('.label-wrap, summary, button');
+    if (summary && !drawer.classList.contains('open')) {
+      summary.click();
+    }
+  }
+  setTimeout(() => {
+    const tabs = document.querySelectorAll('#info-tabs > .tab-nav > button');
+    if (tabs && tabs[tabIndex]) {
+      tabs[tabIndex].click();
+    }
+    if (drawer) {
+      drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 120);
+}
+
+function scrollToDemo() {
+  const upload = document.getElementById('upload-image');
+  if (upload) {
+    upload.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+</script>
+"""
+
 
 @lru_cache(maxsize=1)
 def get_predictor():
@@ -120,7 +166,7 @@ def create_demo():
     with gr.Blocks(title='Clothing Classifier · AML Project', analytics_enabled=False,
                    delete_cache=(3600, 3600)) as demo:
 
-        # Top Navigation Bar & Interactive Scripts
+        # Top Navigation Bar
         gr.HTML("""
         <header class="top-navbar">
           <a class="nav-brand" href="#demo" onclick="scrollToDemo(); return false;">
@@ -146,50 +192,6 @@ def create_demo():
             </a>
           </div>
         </header>
-
-        <script>
-        function toggleTheme() {
-          const isDark = document.body.classList.toggle('dark-theme');
-          const icon = document.getElementById('theme-icon');
-          if (icon) icon.textContent = isDark ? '☀️' : '🌙';
-          try { localStorage.setItem('fash_theme', isDark ? 'dark' : 'light'); } catch(e){}
-        }
-        (function() {
-          try {
-            if (localStorage.getItem('fash_theme') === 'dark') {
-              document.body.classList.add('dark-theme');
-              const icon = document.getElementById('theme-icon');
-              if (icon) icon.textContent = '☀️';
-            }
-          } catch(e){}
-        })();
-
-        function openInfoTab(tabIndex) {
-          const drawer = document.getElementById('info-drawer');
-          if (drawer) {
-            const summary = drawer.querySelector('.label-wrap, summary, button');
-            if (summary && !drawer.classList.contains('open')) {
-              summary.click();
-            }
-          }
-          setTimeout(() => {
-            const tabs = document.querySelectorAll('#info-tabs > .tab-nav > button');
-            if (tabs && tabs[tabIndex]) {
-              tabs[tabIndex].click();
-            }
-            if (drawer) {
-              drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }, 120);
-        }
-
-        function scrollToDemo() {
-          const upload = document.getElementById('upload-image');
-          if (upload) {
-            upload.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-        </script>
         """)
 
         # Expandable Interactive Information Drawer (About, Dataset, Model Architecture)
@@ -522,7 +524,7 @@ def main():
     demo.launch(server_name=args.host, server_port=args.port, share=False,
                 inbrowser=args.open_browser, show_error=False, ssr_mode=False,
                 theme=gr.themes.Soft(primary_hue='indigo', font=['system-ui', 'sans-serif']),
-                css=CSS, footer_links=[])
+                css=CSS, head=HEAD_JS, footer_links=[])
 
 if __name__ == '__main__':
     main()
