@@ -4,19 +4,19 @@
   --primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
   --accent-blue: #2563eb;
   --accent-blue-hover: #1d4ed8;
-  --bg-gradient: radial-gradient(at 0% 0%, rgba(219, 234, 254, 0.8) 0px, transparent 55%),
-                 radial-gradient(at 100% 0%, rgba(254, 215, 170, 0.55) 0px, transparent 50%),
-                 radial-gradient(at 100% 100%, rgba(254, 243, 199, 0.45) 0px, transparent 50%),
-                 radial-gradient(at 0% 100%, rgba(237, 233, 254, 0.65) 0px, transparent 55%),
+  --bg-gradient: radial-gradient(circle at 8% 12%, rgba(199, 210, 254, 0.85) 0%, rgba(224, 231, 255, 0.5) 28%, transparent 55%),
+                 radial-gradient(circle at 92% 12%, rgba(254, 215, 170, 0.8) 0%, rgba(254, 240, 138, 0.4) 25%, transparent 52%),
+                 radial-gradient(circle at 94% 88%, rgba(254, 205, 211, 0.6) 0%, rgba(254, 243, 199, 0.45) 30%, transparent 55%),
+                 radial-gradient(circle at 6% 88%, rgba(237, 233, 254, 0.85) 0%, rgba(219, 234, 254, 0.45) 30%, transparent 55%),
                  #f8fafc;
-  --card-bg: #ffffff;
-  --card-border: 1px solid #f1f5f9;
+  --card-bg: rgba(255, 255, 255, 0.82);
+  --card-border: 1px solid rgba(255, 255, 255, 0.95);
   --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.03), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
   --text-title: #0f172a;
   --text-body: #1e293b;
   --text-sub: #64748b;
-  --nav-bg: rgba(255, 255, 255, 0.95);
-  --nav-border: 1px solid rgba(255, 255, 255, 0.9);
+  --nav-bg: rgba(255, 255, 255, 0.82);
+  --nav-border: 1px solid rgba(255, 255, 255, 0.95);
   --border-subtle: #f1f5f9;
   --input-bg: #fafafa;
   --input-border: #cbd5e1;
@@ -55,12 +55,10 @@ html, body {
   min-height: 100vh !important;
   margin: 0 !important;
   padding: 0 !important;
-  background: radial-gradient(at 0% 0%, rgba(219, 234, 254, 0.75) 0px, transparent 55%),
-              radial-gradient(at 100% 0%, rgba(254, 215, 170, 0.45) 0px, transparent 50%),
-              radial-gradient(at 100% 100%, rgba(254, 243, 199, 0.35) 0px, transparent 50%),
-              radial-gradient(at 0% 100%, rgba(237, 233, 254, 0.55) 0px, transparent 55%),
-              #f8fafc !important;
+  background: var(--bg-gradient) !important;
   background-attachment: fixed !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif !important;
   color: var(--text-body) !important;
   transition: background 0.3s ease, color 0.3s ease;
@@ -98,15 +96,21 @@ body:not(.dark-theme) .dark {
 
 html:not(.dark-theme) body:not(.dark-theme) .glass-panel,
 html:not(.dark-theme) body:not(.dark-theme) .upload-panel,
-html:not(.dark-theme) body:not(.dark-theme) .results-panel,
+html:not(.dark-theme) body:not(.dark-theme) .results-panel {
+  background: rgba(255, 255, 255, 0.84) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.03), 0 4px 6px -2px rgba(0, 0, 0, 0.02) !important;
+  color: #0f172a !important;
+}
+
 html:not(.dark-theme) body:not(.dark-theme) .gradio-group,
 html:not(.dark-theme) body:not(.dark-theme) fieldset,
 html:not(.dark-theme) body:not(.dark-theme) .block,
 body:not(.dark-theme) .dark\:bg-gray-800,
 body:not(.dark-theme) .dark\:bg-slate-800,
 body:not(.dark-theme) .dark\:bg-slate-900 {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
   border-color: #f1f5f9 !important;
   color: #0f172a !important;
 }
