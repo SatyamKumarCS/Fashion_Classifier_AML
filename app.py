@@ -120,31 +120,285 @@ def create_demo():
     with gr.Blocks(title='Clothing Classifier · AML Project', analytics_enabled=False,
                    delete_cache=(3600, 3600)) as demo:
 
-        # Top Navigation Bar
+        # Top Navigation Bar & Interactive Scripts
         gr.HTML("""
         <header class="top-navbar">
-          <a class="nav-brand" href="#demo">
+          <a class="nav-brand" href="#demo" onclick="scrollToDemo(); return false;">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
             </svg>
             Clothing Classifier
           </a>
           <nav class="nav-links">
-            <a class="nav-link active" href="#demo">Home</a>
-            <a class="nav-link" href="#about">About</a>
-            <a class="nav-link" href="#dataset">Dataset</a>
-            <a class="nav-link" href="#model">Model</a>
-            <a class="nav-link" href="#demo">Try Demo</a>
+            <button class="nav-link active" id="nav-btn-home" type="button" onclick="scrollToDemo()">Home</button>
+            <button class="nav-link" id="nav-btn-about" type="button" onclick="openInfoTab(0)">About</button>
+            <button class="nav-link" id="nav-btn-dataset" type="button" onclick="openInfoTab(1)">Dataset</button>
+            <button class="nav-link" id="nav-btn-model" type="button" onclick="openInfoTab(2)">Model</button>
+            <button class="nav-link nav-btn-highlight" id="nav-btn-demo" type="button" onclick="scrollToDemo()">Try Demo</button>
           </nav>
           <div class="nav-actions">
-            <span style="font-size: 1.1rem; cursor: pointer;" title="Toggle theme">🌙</span>
+            <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" type="button" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+              <span id="theme-icon">🌙</span>
+            </button>
             <a class="github-btn" href="https://github.com/krishnaverma09/Fashion_Classifier_AML" target="_blank" rel="noopener">
               <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
               GitHub
             </a>
           </div>
         </header>
+
+        <script>
+        function toggleTheme() {
+          const isDark = document.body.classList.toggle('dark-theme');
+          const icon = document.getElementById('theme-icon');
+          if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+          try { localStorage.setItem('fash_theme', isDark ? 'dark' : 'light'); } catch(e){}
+        }
+        (function() {
+          try {
+            if (localStorage.getItem('fash_theme') === 'dark') {
+              document.body.classList.add('dark-theme');
+              const icon = document.getElementById('theme-icon');
+              if (icon) icon.textContent = '☀️';
+            }
+          } catch(e){}
+        })();
+
+        function openInfoTab(tabIndex) {
+          const drawer = document.getElementById('info-drawer');
+          if (drawer) {
+            const summary = drawer.querySelector('.label-wrap, summary, button');
+            if (summary && !drawer.classList.contains('open')) {
+              summary.click();
+            }
+          }
+          setTimeout(() => {
+            const tabs = document.querySelectorAll('#info-tabs > .tab-nav > button');
+            if (tabs && tabs[tabIndex]) {
+              tabs[tabIndex].click();
+            }
+            if (drawer) {
+              drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 120);
+        }
+
+        function scrollToDemo() {
+          const upload = document.getElementById('upload-image');
+          if (upload) {
+            upload.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+        </script>
         """)
+
+        # Expandable Interactive Information Drawer (About, Dataset, Model Architecture)
+        with gr.Accordion("📖 Project Information & Reference Architecture (About · Dataset · Model)",
+                          open=False, elem_id="info-drawer", elem_classes=["glass-panel", "info-accordion"]):
+            with gr.Tabs(elem_id="info-tabs"):
+                with gr.Tab("ℹ️ About", id="tab-about"):
+                    gr.HTML("""
+                    <div class="info-tab-content">
+                      <div class="info-grid-2">
+                        <div>
+                          <h4 class="tab-subtitle">🎯 Project Background & Mission</h4>
+                          <p class="tab-body-text">
+                            <strong>Automatic Clothing Category Recognition</strong> provides automated visual categorization for e-commerce apparel inventory systems. Categorizing inventory items directly from product photography reduces manual indexing errors and accelerates catalog ingestion.
+                          </p>
+                          <div class="badge-list" style="margin-top: 10px;">
+                            <span class="info-badge blue">E-Commerce Tagging</span>
+                            <span class="info-badge purple">PyTorch CNN</span>
+                            <span class="info-badge green">Production UI</span>
+                            <span class="info-badge orange">Phase 1 Delivery</span>
+                          </div>
+                        </div>
+                        <div>
+                          <h4 class="tab-subtitle">🔬 Methodology & Phase 1 Scope</h4>
+                          <p class="tab-body-text">
+                            Our rigorous evaluation framework eliminates experimental bias through disciplined data splits:
+                          </p>
+                          <ul class="tab-bullet-list">
+                            <li><strong>Identical Training Budget:</strong> 12,000 stratified training images across all classical baselines and CNN.</li>
+                            <li><strong>Baseline Exploration:</strong> Logistic Regression, kNN, Random Forest, and Linear SVM evaluated on flattened pixels and handcrafted HOG features.</li>
+                            <li><strong>Strict Test Gate:</strong> Model choices frozen in <code>frozen-models.json</code> prior to single-run official test set evaluation.</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div class="team-section" style="margin-top: 18px;">
+                        <h4 class="tab-subtitle">👥 Project Team</h4>
+                        <div class="team-cards-grid">
+                          <div class="team-card">
+                            <div class="team-avatar">SK</div>
+                            <div class="team-info">
+                              <div class="team-name">Satyam Kumar</div>
+                              <div class="team-enroll">Enroll: 2401010428</div>
+                            </div>
+                          </div>
+                          <div class="team-card">
+                            <div class="team-avatar">KV</div>
+                            <div class="team-info">
+                              <div class="team-name">Krishna Verma</div>
+                              <div class="team-enroll">Team Member</div>
+                            </div>
+                          </div>
+                          <div class="team-card">
+                            <div class="team-avatar">AV</div>
+                            <div class="team-info">
+                              <div class="team-name">Akshit Vats</div>
+                              <div class="team-enroll">Team Member</div>
+                            </div>
+                          </div>
+                          <div class="team-card">
+                            <div class="team-avatar">CS</div>
+                            <div class="team-info">
+                              <div class="team-name">Chinmay Soni</div>
+                              <div class="team-enroll">Enroll: 2401010134</div>
+                            </div>
+                          </div>
+                          <div class="team-card">
+                            <div class="team-avatar">LB</div>
+                            <div class="team-info">
+                              <div class="team-name">Lakshya Bapna</div>
+                              <div class="team-enroll">Team Member</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    """)
+
+                with gr.Tab("📊 Dataset", id="tab-dataset"):
+                    gr.HTML("""
+                    <div class="info-tab-content">
+                      <div class="stats-overview-grid">
+                        <div class="stat-card">
+                          <div class="stat-num">70,000</div>
+                          <div class="stat-label">Total Images (28×28 Grayscale)</div>
+                        </div>
+                        <div class="stat-card">
+                          <div class="stat-num">60,000</div>
+                          <div class="stat-label">Training Pool (48k Train / 12k Val)</div>
+                        </div>
+                        <div class="stat-card">
+                          <div class="stat-num">12,000</div>
+                          <div class="stat-label">Fair Training Budget (1,200/class)</div>
+                        </div>
+                        <div class="stat-card">
+                          <div class="stat-num">10,000</div>
+                          <div class="stat-label">Official Test (1,000/class, 1 Eval)</div>
+                        </div>
+                      </div>
+
+                      <h4 class="tab-subtitle" style="margin-top: 18px;">🏷️ 10 Balanced Categories</h4>
+                      <div class="class-grid-10">
+                        <div class="class-chip"><span class="class-icon">👕</span><span class="class-name">0: T-shirt/top</span></div>
+                        <div class="class-chip"><span class="class-icon">👖</span><span class="class-name">1: Trouser</span></div>
+                        <div class="class-chip"><span class="class-icon">🧥</span><span class="class-name">2: Pullover</span></div>
+                        <div class="class-chip"><span class="class-icon">👗</span><span class="class-name">3: Dress</span></div>
+                        <div class="class-chip"><span class="class-icon">🧥</span><span class="class-name">4: Coat</span></div>
+                        <div class="class-chip"><span class="class-icon">👡</span><span class="class-name">5: Sandal</span></div>
+                        <div class="class-chip"><span class="class-icon">👔</span><span class="class-name">6: Shirt</span></div>
+                        <div class="class-chip"><span class="class-icon">👟</span><span class="class-name">7: Sneaker</span></div>
+                        <div class="class-chip"><span class="class-icon">👜</span><span class="class-name">8: Bag</span></div>
+                        <div class="class-chip"><span class="class-icon">👢</span><span class="class-name">9: Ankle boot</span></div>
+                      </div>
+
+                      <div class="data-notes" style="margin-top: 16px;">
+                        <h4 class="tab-subtitle">⚙️ Preprocessing Contract</h4>
+                        <p class="tab-body-text">
+                          Raw inputs are normalized from uint8 $[0, 255]$ to float32 $[0.0, 1.0]$. The inference engine automatically applies EXIF rotation compensation, aspect-ratio preserving bilinear letterboxing into $28 \times 28$, centered dark padding, and optional contrast inversion for light backgrounds.
+                        </p>
+                      </div>
+                    </div>
+                    """)
+
+                with gr.Tab("🧠 Model Architecture", id="tab-model"):
+                    gr.HTML("""
+                    <div class="info-tab-content">
+                      <div class="info-grid-2">
+                        <div>
+                          <h4 class="tab-subtitle">🧠 SmallCNN Architecture Specifications</h4>
+                          <div class="arch-box">
+                            <div class="arch-layer"><strong>Input:</strong> 1 × 28 × 28 normalized grayscale tensor</div>
+                            <div class="arch-arrow">↓</div>
+                            <div class="arch-layer"><strong>Conv Block 1:</strong> Conv2d(1→32, 3×3, pad 1) + BatchNorm2d(32) + ReLU + MaxPool2d(2×2) → (32, 14, 14)</div>
+                            <div class="arch-arrow">↓</div>
+                            <div class="arch-layer"><strong>Conv Block 2:</strong> Conv2d(32→64, 3×3, pad 1) + BatchNorm2d(64) + ReLU + MaxPool2d(2×2) → (64, 7, 7)</div>
+                            <div class="arch-arrow">↓</div>
+                            <div class="arch-layer"><strong>Dense Head:</strong> Flatten(3136) → Linear(3136→128) + ReLU + Dropout(0.4) → Linear(128→64) + ReLU → Linear(64→10)</div>
+                          </div>
+                          <div class="param-summary" style="margin-top: 10px;">
+                            <span class="info-badge green">Trainable Parameters: <strong>429,450</strong></span>
+                            <span class="info-badge blue">Optimizer: Adam (lr=1e-3, weight_decay=1e-4)</span>
+                          </div>
+                        </div>
+
+                        <div>
+                          <h4 class="tab-subtitle">🏆 Test Benchmark Comparison</h4>
+                          <div class="table-container">
+                            <table class="benchmark-table">
+                              <thead>
+                                <tr>
+                                  <th>Model / Baseline</th>
+                                  <th>Test Acc</th>
+                                  <th>Macro F1</th>
+                                  <th>Val Acc</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr class="highlight-row">
+                                  <td><strong>🔥 SmallCNN (Best Deployed)</strong></td>
+                                  <td><strong>89.00%</strong></td>
+                                  <td><strong>88.85%</strong></td>
+                                  <td>89.93%</td>
+                                </tr>
+                                <tr>
+                                  <td>Pixels + Random Forest (Best Classical)</td>
+                                  <td>85.27%</td>
+                                  <td>85.09%</td>
+                                  <td>86.46%</td>
+                                </tr>
+                                <tr>
+                                  <td>HOG + Logistic Regression</td>
+                                  <td>83.27%</td>
+                                  <td>83.22%</td>
+                                  <td>83.94%</td>
+                                </tr>
+                                <tr>
+                                  <td>HOG + Linear SVM</td>
+                                  <td>82.56%</td>
+                                  <td>82.40%</td>
+                                  <td>84.03%</td>
+                                </tr>
+                                <tr>
+                                  <td>Pixels + kNN</td>
+                                  <td>82.41%</td>
+                                  <td>82.40%</td>
+                                  <td>83.47%</td>
+                                </tr>
+                                <tr>
+                                  <td>Pixels + Logistic Regression</td>
+                                  <td>82.27%</td>
+                                  <td>82.22%</td>
+                                  <td>83.75%</td>
+                                </tr>
+                                <tr>
+                                  <td>HOG + Random Forest</td>
+                                  <td>81.97%</td>
+                                  <td>81.94%</td>
+                                  <td>82.84%</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <p class="tab-note" style="margin-top: 8px;">
+                            ✨ <em>SmallCNN outperforms the best classical model by <strong>+3.73 percentage points</strong> (95% bootstrap CI [3.14, 4.31] pts).</em>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    """)
 
         # Main Two-Column Layout
         with gr.Row():
@@ -241,9 +495,10 @@ def create_demo():
 
                     examples, names = sample_inputs()
                     if examples:
-                        gr.Examples(examples=examples, example_labels=names, inputs=[image, background],
-                                    examples_per_page=11, visible_columns=[0], cache_examples=False,
-                                    run_on_click=False, label='')
+                        with gr.Group(elem_id="sample-gallery-wrapper"):
+                            gr.Examples(examples=examples, example_labels=names, inputs=[image, background],
+                                        examples_per_page=11, visible_columns=[0], cache_examples=False,
+                                        run_on_click=False, label='')
 
         # Interactivity Wire-up
         predict_button.click(handle_prediction, inputs=[image, background], outputs=[result, scores, preview],
