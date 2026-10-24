@@ -50,14 +50,27 @@ body.dark-theme, .dark-theme .gradio-container {
   color: var(--text-body) !important;
 }
 
-html, body, .gradio-container {
-  background: var(--bg-gradient) !important;
+html, body {
+  width: 100% !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: radial-gradient(at 0% 0%, rgba(219, 234, 254, 0.75) 0px, transparent 55%),
+              radial-gradient(at 100% 0%, rgba(254, 215, 170, 0.45) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, rgba(254, 243, 199, 0.35) 0px, transparent 50%),
+              radial-gradient(at 0% 100%, rgba(237, 233, 254, 0.55) 0px, transparent 55%),
+              #f8fafc !important;
+  background-attachment: fixed !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif !important;
   color: var(--text-body) !important;
-  max-width: 1280px !important;
-  margin: 0 auto !important;
-  padding: 12px 24px 40px !important;
   transition: background 0.3s ease, color 0.3s ease;
+}
+
+.gradio-container {
+  background: transparent !important;
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+  padding: 14px 20px 40px !important;
 }
 
 /* ==========================================================================
@@ -517,14 +530,27 @@ footer { display: none !important; }
   overflow: hidden !important;
 }
 
-/* Image Preview Label Badge Neutralization (Remove Solid Purple Badges & Toolbars) */
+/* Hide Upload Box Label Badge completely (Exact Match to Mockup) */
 #upload-image [data-testid="block-label"],
 #upload-image [data-testid="block-info"],
 #upload-image label,
 #upload-image label span,
 #upload-image .block-label,
-#upload-image .label-wrap,
-#upload-image .label-wrap span,
+#upload-image .label-wrap {
+  display: none !important;
+}
+
+#upload-image .image-container,
+#upload-image .upload-container,
+#upload-image [data-testid="image"],
+#upload-image .dropzone,
+#upload-image > div {
+  border: 1.5px dashed #cbd5e1 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+}
+
+/* Image Preview Label Badge Neutralization (Remove Solid Purple Badges & Toolbars) */
 #user-preview [data-testid="block-label"],
 #user-preview [data-testid="block-info"],
 #user-preview label,
@@ -549,6 +575,14 @@ footer { display: none !important; }
   border: none !important;
   box-shadow: none !important;
   padding: 2px 4px !important;
+}
+
+#user-preview [class*="bg-primary"],
+#user-preview [class*="bg-indigo"],
+#model-preview [class*="bg-primary"],
+#model-preview [class*="bg-indigo"] {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 #upload-image svg,
@@ -729,18 +763,26 @@ footer { display: none !important; }
   background: rgba(255, 255, 255, 0.08) !important;
 }
 
-#scores-label meter::-webkit-meter-optimum-value,
-#scores-label meter::-webkit-meter-suboptimum-value,
-#scores-label meter::-webkit-meter-even-less-good-value {
+#scores-label meter::-webkit-meter-optimum-value {
   background: #2563eb !important;
   border-radius: 9999px !important;
   height: 9px !important;
 }
 
-.dark-theme #scores-label meter::-webkit-meter-optimum-value,
+#scores-label meter::-webkit-meter-suboptimum-value,
+#scores-label meter::-webkit-meter-even-less-good-value {
+  background: #cbd5e1 !important;
+  border-radius: 9999px !important;
+  height: 9px !important;
+}
+
+.dark-theme #scores-label meter::-webkit-meter-optimum-value {
+  background: #3b82f6 !important;
+}
+
 .dark-theme #scores-label meter::-webkit-meter-suboptimum-value,
 .dark-theme #scores-label meter::-webkit-meter-even-less-good-value {
-  background: #3b82f6 !important;
+  background: rgba(255, 255, 255, 0.18) !important;
 }
 
 /* ==========================================================================
