@@ -74,21 +74,53 @@ else:
 
 HEAD_JS = """
 <script>
-function toggleTheme() {
-  const isDark = document.body.classList.toggle('dark-theme');
+function applyTheme(isDark) {
+  if (isDark) {
+    document.documentElement.classList.add('dark', 'dark-theme');
+    document.body.classList.add('dark', 'dark-theme');
+  } else {
+    document.documentElement.classList.remove('dark', 'dark-theme');
+    document.body.classList.remove('dark', 'dark-theme');
+  }
   const icon = document.getElementById('theme-icon');
   if (icon) icon.textContent = isDark ? '☀️' : '🌙';
   try { localStorage.setItem('fash_theme', isDark ? 'dark' : 'light'); } catch(e){}
 }
+
+function toggleTheme() {
+  const isDark = !document.body.classList.contains('dark-theme');
+  applyTheme(isDark);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   try {
-    if (localStorage.getItem('fash_theme') === 'dark') {
-      document.body.classList.add('dark-theme');
-      const icon = document.getElementById('theme-icon');
-      if (icon) icon.textContent = '☀️';
-    }
+    const isDark = (localStorage.getItem('fash_theme') === 'dark');
+    applyTheme(isDark);
   } catch(e){}
 });
+
+// Guard against Gradio automatically forcing .dark from macOS system preference
+function stripDarkInLightMode() {
+  try {
+    if (localStorage.getItem('fash_theme') !== 'dark') {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+      }
+      if (document.body.classList.contains('dark') && !document.body.classList.contains('dark-theme')) {
+        document.body.classList.remove('dark');
+      }
+      document.querySelectorAll('#scores-label, #scores-label *, .glass-panel, .glass-panel *').forEach(function(el) {
+        if (el.classList.contains('dark')) el.classList.remove('dark');
+      });
+    }
+  } catch(e){}
+}
+
+const themeGuard = new MutationObserver(function() {
+  stripDarkInLightMode();
+});
+themeGuard.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+themeGuard.observe(document.body, { attributes: true, attributeFilter: ['class'], childList: true, subtree: true });
 
 function openInfoModal(tabIndex) {
   const backdrop = document.getElementById('info-modal-backdrop');
@@ -152,6 +184,90 @@ document.addEventListener('click', function(e) {
     el = el.parentElement;
   }
 }, true);
+
+// ── Enrich scores with icons and decimal format, and samples with captions ──
+const CATEGORY_EMOJIS = {
+  'T-shirt/top': '👕',
+  'Trouser': '👖',
+  'Pullover': '🧥',
+  'Dress': '👗',
+  'Coat': '🧥',
+  'Sandal': '👡',
+  'Shirt': '👔',
+  'Sneaker': '👟',
+  'Bag': '👜',
+  'Ankle boot': '👢'
+};
+
+function enrichScoreElements() {
+  const container = document.getElementById('scores-label');
+  if (!container) return;
+  const dts = container.querySelectorAll('dt');
+  dts.forEach(dt => {
+    const raw = dt.textContent.replace(/[^\w\s\/\-]/g, '').trim();
+    if (CATEGORY_EMOJIS[raw] && !dt.querySelector('.score-icon')) {
+      dt.innerHTML = '<span class="score-icon" style="margin-right: 6px;">' + CATEGORY_EMOJIS[raw] + '</span>' + raw;
+    }
+  });
+
+  const dds = container.querySelectorAll('dd');
+  dds.forEach(dd => {
+    const txt = dd.textContent.trim();
+    if (txt.endsWith('%')) {
+      const num = parseFloat(txt);
+      if (!isNaN(num)) {
+        dd.textContent = (num / 100).toFixed(2);
+      }
+    }
+  });
+}
+
+const SAMPLE_NAMES = [
+  'T-shirt/top',
+  'Trouser',
+  'Pullover',
+  'Dress',
+  'Coat',
+  'Sandal',
+  'Shirt',
+  'Sneaker',
+  'Bag',
+  'Ankle boot',
+  'T-shirt/top'
+];
+
+function enrichSampleCards() {
+  const wrapper = document.getElementById('sample-gallery-wrapper');
+  if (!wrapper) return;
+  const buttons = wrapper.querySelectorAll('button.gallery-item, td.cell button, .paginate-tbody button, button');
+  let sampleIdx = 0;
+  buttons.forEach(btn => {
+    const img = btn.querySelector('img');
+    if (img) {
+      if (!btn.querySelector('.sample-card-caption')) {
+        const caption = document.createElement('span');
+        caption.className = 'sample-card-caption';
+        caption.textContent = SAMPLE_NAMES[sampleIdx] || (img.getAttribute('alt') || '').split('·')[0].trim();
+        btn.appendChild(caption);
+      }
+      sampleIdx++;
+    }
+  });
+}
+
+const observer = new MutationObserver(function() {
+  enrichScoreElements();
+  enrichSampleCards();
+});
+document.addEventListener('DOMContentLoaded', function() {
+  enrichScoreElements();
+  enrichSampleCards();
+  observer.observe(document.body, { childList: true, subtree: true });
+});
+setInterval(function() {
+  enrichScoreElements();
+  enrichSampleCards();
+}, 600);
 </script>
 """
 
@@ -545,7 +661,7 @@ def create_demo():
 
                     # Scores Across 10 Categories
                     gr.HTML('<h4 class="section-title" style="font-size: 0.95rem; margin: 16px 0 8px;">Scores across 10 categories</h4>')
-                    scores = gr.Label(num_top_classes=10, show_label=False, elem_id='scores-label')
+                    scores = gr.Label(num_top_classes=10, show_label=False, show_heading=False, container=False, elem_id='scores-label')
 
                     # Interactive Sample Picker
                     gr.HTML("""
@@ -558,7 +674,7 @@ def create_demo():
                     examples, names = sample_inputs()
                     if examples:
                         with gr.Group(elem_id="sample-gallery-wrapper"):
-                            gr.Examples(examples=examples, example_labels=names, inputs=[image, background],
+                            gr.Examples(examples=examples, inputs=[image, background],
                                         examples_per_page=11, visible_columns=[0], cache_examples=False,
                                         run_on_click=False, label='')
 
