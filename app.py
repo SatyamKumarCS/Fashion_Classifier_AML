@@ -98,15 +98,18 @@ function openInfoModal(tabIndex) {
   }
 }
 
-function closeInfoModal(event) {
-  if (event && event.target && event.target.id !== 'info-modal-backdrop' && !event.target.classList.contains('info-modal-close')) {
-    return;
-  }
+function closeInfoModal() {
   const backdrop = document.getElementById('info-modal-backdrop');
   if (backdrop) {
     backdrop.style.display = 'none';
   }
 }
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeInfoModal();
+  }
+});
 
 function switchModalTab(tabIndex) {
   for (let i = 0; i < 3; i++) {
@@ -218,14 +221,14 @@ def create_demo():
         </header>
 
         <!-- Interactive Information Modal (About, Dataset, Model Architecture) -->
-        <div id="info-modal-backdrop" class="info-modal-backdrop" style="display: none;" onclick="closeInfoModal(event)">
+        <div id="info-modal-backdrop" class="info-modal-backdrop" style="display: none;" onclick="if(event.target === this) closeInfoModal();">
           <div class="info-modal-dialog" onclick="event.stopPropagation()">
             <div class="info-modal-header">
               <div class="info-modal-title-group">
                 <span style="font-size: 1.3rem;">📖</span>
                 <h3 class="info-modal-title">Project Documentation & Architecture</h3>
               </div>
-              <button type="button" class="info-modal-close" onclick="closeInfoModal()">✕</button>
+              <button type="button" class="info-modal-close" onclick="closeInfoModal(); return false;" aria-label="Close modal">✕</button>
             </div>
             <div class="info-modal-tabs">
               <button type="button" class="info-modal-tab-btn active" id="modal-tab-btn-0" onclick="switchModalTab(0)">ℹ️ About</button>

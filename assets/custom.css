@@ -631,29 +631,34 @@ footer { display: none !important; }
 }
 
 .info-modal-close {
-  background: #f1f5f9;
-  border: none;
-  color: #475569;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 1rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition-fast);
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  position: relative !important;
+  z-index: 9999999 !important;
+  outline: none !important;
 }
 
 .info-modal-close:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+  transform: scale(1.08) !important;
 }
 
 .dark-theme .info-modal-close {
-  background: rgba(255, 255, 255, 0.1);
-  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #f8fafc !important;
 }
 
 .info-modal-tabs {
@@ -699,25 +704,36 @@ footer { display: none !important; }
   gap: 20px;
 }
 
-.tab-subtitle {
-  font-size: 0.96rem;
-  font-weight: 700;
-  color: var(--text-title);
-  margin: 0 0 8px 0;
+.info-modal-dialog .tab-subtitle {
+  font-size: 0.96rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin: 0 0 8px 0 !important;
 }
 
-.tab-body-text {
-  font-size: 0.84rem;
-  color: var(--text-sub);
-  line-height: 1.55;
-  margin: 0;
+.info-modal-dialog .tab-body-text {
+  font-size: 0.86rem !important;
+  color: #334155 !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
 }
 
-.tab-bullet-list {
-  margin: 8px 0 0 0;
-  padding-left: 18px;
-  font-size: 0.84rem;
-  color: var(--text-sub);
+.info-modal-dialog .tab-bullet-list {
+  margin: 8px 0 0 0 !important;
+  padding-left: 18px !important;
+  font-size: 0.86rem !important;
+  color: #334155 !important;
+  line-height: 1.6 !important;
+}
+
+.info-modal-dialog .tab-bullet-list li {
+  margin-bottom: 5px !important;
+  color: #334155 !important;
+}
+
+.info-modal-dialog .tab-bullet-list strong {
+  color: #0f172a !important;
+}
   line-height: 1.55;
 }
 
