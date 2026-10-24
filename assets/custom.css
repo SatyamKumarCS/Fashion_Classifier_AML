@@ -578,10 +578,14 @@ footer { display: none !important; }
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
   z-index: 999999 !important;
-  display: flex !important;
+  display: none;
   align-items: center !important;
   justify-content: center !important;
   padding: 24px !important;
+}
+
+.info-modal-backdrop.open {
+  display: flex !important;
 }
 
 .info-modal-dialog {

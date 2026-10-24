@@ -93,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function openInfoModal(tabIndex) {
   const backdrop = document.getElementById('info-modal-backdrop');
   if (backdrop) {
-    backdrop.style.display = 'flex';
+    backdrop.classList.add('open');
+    backdrop.style.setProperty('display', 'flex', 'important');
     switchModalTab(tabIndex);
   }
 }
@@ -101,7 +102,8 @@ function openInfoModal(tabIndex) {
 function closeInfoModal() {
   const backdrop = document.getElementById('info-modal-backdrop');
   if (backdrop) {
-    backdrop.style.display = 'none';
+    backdrop.classList.remove('open');
+    backdrop.style.setProperty('display', 'none', 'important');
   }
 }
 
