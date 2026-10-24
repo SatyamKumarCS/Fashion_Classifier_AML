@@ -515,7 +515,7 @@ def create_demo():
                     with gr.Row(elem_classes=["dual-preview-grid"]):
                         user_preview = gr.Image(type='pil', format='png', label='Your Image',
                                                 height=170, interactive=False, elem_id='user-preview',
-                                                show_download_button=False)
+                                                buttons=[])
                         preview = gr.Image(type='pil', image_mode='L', format='png', label='Processed Image (28 × 28)',
                                            height=170, interactive=False, elem_id='model-preview', buttons=['download'])
 
