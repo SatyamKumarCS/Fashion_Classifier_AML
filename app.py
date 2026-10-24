@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function openInfoModal(tabIndex) {
   const backdrop = document.getElementById('info-modal-backdrop');
   if (backdrop) {
+    backdrop.setAttribute('style', 'display:flex!important');
     backdrop.classList.add('open');
-    backdrop.style.setProperty('display', 'flex', 'important');
     switchModalTab(tabIndex);
   }
 }
@@ -103,39 +103,55 @@ function closeInfoModal() {
   const backdrop = document.getElementById('info-modal-backdrop');
   if (backdrop) {
     backdrop.classList.remove('open');
-    backdrop.style.setProperty('display', 'none', 'important');
+    backdrop.setAttribute('style', 'display:none!important');
   }
 }
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeInfoModal();
-  }
+  if (e.key === 'Escape') closeInfoModal();
 });
 
 function switchModalTab(tabIndex) {
   for (let i = 0; i < 3; i++) {
     const btn = document.getElementById('modal-tab-btn-' + i);
     const pane = document.getElementById('modal-tab-pane-' + i);
-    if (btn) {
-      if (i === tabIndex) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    }
-    if (pane) {
-      pane.style.display = (i === tabIndex) ? 'block' : 'none';
-    }
+    if (btn) { btn.classList.toggle('active', i === tabIndex); }
+    if (pane) { pane.style.display = (i === tabIndex) ? 'block' : 'none'; }
   }
 }
 
 function scrollToDemo() {
   const upload = document.getElementById('upload-image');
-  if (upload) {
-    upload.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
+  if (upload) upload.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
+
+// ── Event delegation (capture phase) so Gradio cannot swallow our clicks ──
+document.addEventListener('click', function(e) {
+  var t = e.target;
+  // Walk up the DOM to check ancestors too
+  var el = t;
+  while (el && el !== document) {
+    var act = el.getAttribute && el.getAttribute('data-modal-action');
+    if (act === 'close') {
+      e.preventDefault(); e.stopImmediatePropagation();
+      closeInfoModal(); return;
+    }
+    if (act === 'dialog') {
+      // Click inside dialog - do nothing (don't close)
+      return;
+    }
+    if (act === 'backdrop') {
+      e.preventDefault(); e.stopImmediatePropagation();
+      closeInfoModal(); return;
+    }
+    var tab = el.getAttribute && el.getAttribute('data-modal-tab');
+    if (tab !== null && tab !== undefined && tab !== '') {
+      e.preventDefault(); e.stopImmediatePropagation();
+      switchModalTab(parseInt(tab, 10)); return;
+    }
+    el = el.parentElement;
+  }
+}, true);
 </script>
 """
 
@@ -223,19 +239,19 @@ def create_demo():
         </header>
 
         <!-- Interactive Information Modal (About, Dataset, Model Architecture) -->
-        <div id="info-modal-backdrop" class="info-modal-backdrop" style="display: none;" onclick="if(event.target === this) closeInfoModal();">
-          <div class="info-modal-dialog" onclick="event.stopPropagation()">
+        <div id="info-modal-backdrop" class="info-modal-backdrop" style="display:none!important" data-modal-action="backdrop">
+          <div class="info-modal-dialog" data-modal-action="dialog">
             <div class="info-modal-header">
               <div class="info-modal-title-group">
                 <span style="font-size: 1.3rem;">📖</span>
                 <h3 class="info-modal-title">Project Documentation & Architecture</h3>
               </div>
-              <button type="button" class="info-modal-close" onclick="closeInfoModal(); return false;" aria-label="Close modal">✕</button>
+              <div class="info-modal-close" data-modal-action="close" role="button" tabindex="0" aria-label="Close modal">✕</div>
             </div>
             <div class="info-modal-tabs">
-              <button type="button" class="info-modal-tab-btn active" id="modal-tab-btn-0" onclick="switchModalTab(0)">ℹ️ About</button>
-              <button type="button" class="info-modal-tab-btn" id="modal-tab-btn-1" onclick="switchModalTab(1)">📊 Dataset</button>
-              <button type="button" class="info-modal-tab-btn" id="modal-tab-btn-2" onclick="switchModalTab(2)">🧠 Model Architecture</button>
+              <button type="button" class="info-modal-tab-btn active" id="modal-tab-btn-0" data-modal-tab="0">ℹ️ About</button>
+              <button type="button" class="info-modal-tab-btn" id="modal-tab-btn-1" data-modal-tab="1">📊 Dataset</button>
+              <button type="button" class="info-modal-tab-btn" id="modal-tab-btn-2" data-modal-tab="2">🧠 Model Architecture</button>
             </div>
             <div class="info-modal-body">
               <div id="modal-tab-pane-0" class="modal-pane active">

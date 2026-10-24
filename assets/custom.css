@@ -640,6 +640,8 @@ footer { display: none !important; }
   color: #475569 !important;
   width: 36px !important;
   height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
   border-radius: 50% !important;
   font-size: 1.15rem !important;
   font-weight: 700 !important;
@@ -651,6 +653,11 @@ footer { display: none !important; }
   position: relative !important;
   z-index: 9999999 !important;
   outline: none !important;
+  user-select: none !important;
+  flex-shrink: 0 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  pointer-events: all !important;
 }
 
 .info-modal-close:hover {
